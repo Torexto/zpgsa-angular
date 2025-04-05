@@ -1,0 +1,2256 @@
+[
+  {
+    "city": "Bielawa",
+    "name": "Leśny Dworek",
+    "id": "1",
+    "lat": 50.652092,
+    "lon": 16.582954
+  },
+  {
+    "city": "Bielawa",
+    "name": "Nowobielawska II",
+    "id": "2",
+    "lat": 50.658398,
+    "lon": 16.59364
+  },
+  {
+    "city": "Bielawa",
+    "name": "Nowobielawska II",
+    "id": "3",
+    "lat": 50.657204,
+    "lon": 16.592445
+  },
+  {
+    "city": "Bielawa",
+    "name": "Nowobielawska",
+    "id": "4",
+    "lat": 50.66149,
+    "lon": 16.595655
+  },
+  {
+    "city": "Jodłownik",
+    "name": "",
+    "id": "6",
+    "lat": 50.648796,
+    "lon": 16.610489
+  },
+  {
+    "city": "Bielawa",
+    "name": "Sowia",
+    "id": "7",
+    "lat": 50.666634,
+    "lon": 16.601404
+  },
+  {
+    "city": "Bielawa",
+    "name": "Sowia",
+    "id": "8",
+    "lat": 50.666897,
+    "lon": 16.601694
+  },
+  {
+    "city": "Bielawa",
+    "name": "Waryńskiego (Bieltex V)",
+    "id": "9",
+    "lat": 50.670147,
+    "lon": 16.603449
+  },
+  {
+    "city": "Bielawa",
+    "name": "Waryńskiego (Bieltex V)",
+    "id": "10",
+    "lat": 50.669594,
+    "lon": 16.603582
+  },
+  {
+    "city": "Bielawa",
+    "name": "Słowiańska",
+    "id": "11",
+    "lat": 50.669327,
+    "lon": 16.599905
+  },
+  {
+    "city": "Bielawa",
+    "name": "Os. Białe",
+    "id": "12",
+    "lat": 50.673496,
+    "lon": 16.596043
+  },
+  {
+    "city": "Bielawa",
+    "name": "Camping Sudety",
+    "id": "13",
+    "lat": 50.6778,
+    "lon": 16.590336
+  },
+  {
+    "city": "Bielawa",
+    "name": "Kasztanowa",
+    "id": "14",
+    "lat": 50.674324,
+    "lon": 16.598055
+  },
+  {
+    "city": "Bielawa",
+    "name": "Pl. Kościelny",
+    "id": "16",
+    "lat": 50.674606,
+    "lon": 16.604069
+  },
+  {
+    "city": "Bielawa",
+    "name": "Pl. Kościelny",
+    "id": "17",
+    "lat": 50.67425,
+    "lon": 16.604218
+  },
+  {
+    "city": "Bielawa",
+    "name": "Frankowskiego",
+    "id": "18",
+    "lat": 50.674133,
+    "lon": 16.60298
+  },
+  {
+    "city": "Bielawa",
+    "name": "Ostroszowicka",
+    "id": "19",
+    "lat": 50.674744,
+    "lon": 16.604746
+  },
+  {
+    "city": "Bielawa",
+    "name": "Ace Rico",
+    "id": "20",
+    "lat": 50.67078,
+    "lon": 16.609806
+  },
+  {
+    "city": "Bielawa",
+    "name": "Ace Rico",
+    "id": "21",
+    "lat": 50.67142,
+    "lon": 16.609236
+  },
+  {
+    "city": "Bielawa",
+    "name": "Szewska",
+    "id": "22",
+    "lat": 50.664307,
+    "lon": 16.618896
+  },
+  {
+    "city": "Bielawa",
+    "name": "Szewska",
+    "id": "23",
+    "lat": 50.66425,
+    "lon": 16.619135
+  },
+  {
+    "city": "Bielawa",
+    "name": "Józefówek",
+    "id": "25",
+    "lat": 50.66041,
+    "lon": 16.62469
+  },
+  {
+    "city": "Bielawa",
+    "name": "Józefówek",
+    "id": "26",
+    "lat": 50.660736,
+    "lon": 16.624405
+  },
+  {
+    "city": "Bielawa",
+    "name": "Ludowa",
+    "id": "27",
+    "lat": 50.678455,
+    "lon": 16.606
+  },
+  {
+    "city": "Bielawa",
+    "name": "Ludowa",
+    "id": "28",
+    "lat": 50.677746,
+    "lon": 16.605694
+  },
+  {
+    "city": "Bielawa",
+    "name": "Bielbaw",
+    "id": "29",
+    "lat": 50.682007,
+    "lon": 16.608875
+  },
+  {
+    "city": "Bielawa",
+    "name": "Bielbaw",
+    "id": "30",
+    "lat": 50.68216,
+    "lon": 16.6092
+  },
+  {
+    "city": "Bielawa",
+    "name": "Góra Parkowa",
+    "id": "31",
+    "lat": 50.68003,
+    "lon": 16.612923
+  },
+  {
+    "city": "Bielawa",
+    "name": "Góra Parkowa",
+    "id": "32",
+    "lat": 50.679344,
+    "lon": 16.61335
+  },
+  {
+    "city": "Bielawa",
+    "name": "Sikorskiego",
+    "id": "33",
+    "lat": 50.678352,
+    "lon": 16.619392
+  },
+  {
+    "city": "Bielawa",
+    "name": "Sikorskiego",
+    "id": "34",
+    "lat": 50.67849,
+    "lon": 16.62063
+  },
+  {
+    "city": "Bielawa",
+    "name": "Sikorskiego Rondo",
+    "id": "35",
+    "lat": 50.67974,
+    "lon": 16.625978
+  },
+  {
+    "city": "Bielawa",
+    "name": "Sikorskiego Rondo",
+    "id": "36",
+    "lat": 50.679504,
+    "lon": 16.625546
+  },
+  {
+    "city": "Bielawa",
+    "name": "Andersa I",
+    "id": "37",
+    "lat": 50.680813,
+    "lon": 16.622536
+  },
+  {
+    "city": "Bielawa",
+    "name": "Andersa II",
+    "id": "38",
+    "lat": 50.68001,
+    "lon": 16.623415
+  },
+  {
+    "city": "Bielawa",
+    "name": "Andersa III",
+    "id": "39",
+    "lat": 50.683414,
+    "lon": 16.620287
+  },
+  {
+    "city": "Bielawa",
+    "name": "Os. XXV-lecia",
+    "id": "40",
+    "lat": 50.68432,
+    "lon": 16.619267
+  },
+  {
+    "city": "Bielawa",
+    "name": "Parkowa",
+    "id": "41",
+    "lat": 50.687374,
+    "lon": 16.622732
+  },
+  {
+    "city": "Bielawa",
+    "name": "Bata",
+    "id": "42",
+    "lat": 50.693474,
+    "lon": 16.629057
+  },
+  {
+    "city": "Bielawa",
+    "name": "Łącznik 1 Maja",
+    "id": "43",
+    "lat": 50.689484,
+    "lon": 16.624483
+  },
+  {
+    "city": "Bielawa",
+    "name": "Bata",
+    "id": "44",
+    "lat": 50.693123,
+    "lon": 16.628578
+  },
+  {
+    "city": "Bielawa",
+    "name": "Łącznik 1 Maja",
+    "id": "45",
+    "lat": 50.68962,
+    "lon": 16.624588
+  },
+  {
+    "city": "Bielawa",
+    "name": "Bieltex I",
+    "id": "46",
+    "lat": 50.695393,
+    "lon": 16.63842
+  },
+  {
+    "city": "Bielawa",
+    "name": "Bieltex I",
+    "id": "47",
+    "lat": 50.695145,
+    "lon": 16.637527
+  },
+  {
+    "city": "Bielawa",
+    "name": "Gazownia",
+    "id": "48",
+    "lat": 50.701317,
+    "lon": 16.643835
+  },
+  {
+    "city": "Bielawa",
+    "name": "Gazownia",
+    "id": "49",
+    "lat": 50.702553,
+    "lon": 16.644514
+  },
+  {
+    "city": "Bielawa",
+    "name": "Cmentarz Komunalny",
+    "id": "51",
+    "lat": 50.676693,
+    "lon": 16.63767
+  },
+  {
+    "city": "Bielawa",
+    "name": "Myśliszów",
+    "id": "52",
+    "lat": 50.673615,
+    "lon": 16.646763
+  },
+  {
+    "city": "Bielawa",
+    "name": "Bohaterów Getta",
+    "id": "56",
+    "lat": 50.692757,
+    "lon": 16.619108
+  },
+  {
+    "city": "Bielawa",
+    "name": "Bohaterów Getta",
+    "id": "57",
+    "lat": 50.69282,
+    "lon": 16.619125
+  },
+  {
+    "city": "Bielawa",
+    "name": "LOK",
+    "id": "58",
+    "lat": 50.688805,
+    "lon": 16.622065
+  },
+  {
+    "city": "Bielawa",
+    "name": "Hotel \"Pod Wielką Sową\"",
+    "id": "59",
+    "lat": 50.686577,
+    "lon": 16.616686
+  },
+  {
+    "city": "Bielawa",
+    "name": "Żeromskiego (Pl. Wolności)",
+    "id": "60",
+    "lat": 50.685574,
+    "lon": 16.61215
+  },
+  {
+    "city": "Bielawa",
+    "name": "L.O. (Pl. Wolności)",
+    "id": "61",
+    "lat": 50.683025,
+    "lon": 16.612837
+  },
+  {
+    "city": "Bielawa",
+    "name": "Ogródki działkowe",
+    "id": "62",
+    "lat": 50.694912,
+    "lon": 16.614988
+  },
+  {
+    "city": "Bielawa",
+    "name": "Ogródki działkowe",
+    "id": "63",
+    "lat": 50.69551,
+    "lon": 16.613897
+  },
+  {
+    "city": "Dzierżoniów",
+    "name": "MZK",
+    "id": "66",
+    "lat": 50.715252,
+    "lon": 16.650286
+  },
+  {
+    "city": "Dzierżoniów",
+    "name": "MZK",
+    "id": "67",
+    "lat": 50.715416,
+    "lon": 16.650555
+  },
+  {
+    "city": "Dzierżoniów",
+    "name": "Batalionów Chłopskich",
+    "id": "68",
+    "lat": 50.719418,
+    "lon": 16.649914
+  },
+  {
+    "city": "Dzierżoniów",
+    "name": "Batalionów Chłopskich",
+    "id": "69",
+    "lat": 50.71995,
+    "lon": 16.650229
+  },
+  {
+    "city": "Dzierżoniów",
+    "name": "Dworzec PKS młyn",
+    "id": "70",
+    "lat": 50.725124,
+    "lon": 16.653868
+  },
+  {
+    "city": "Dzierżoniów",
+    "name": "Piłsudskiego",
+    "id": "71",
+    "lat": 50.73016,
+    "lon": 16.652472
+  },
+  {
+    "city": "Dzierżoniów",
+    "name": "Piłsudskiego",
+    "id": "72",
+    "lat": 50.72992,
+    "lon": 16.653387
+  },
+  {
+    "city": "Dzierżoniów",
+    "name": "Os. Jasne",
+    "id": "73",
+    "lat": 50.73415,
+    "lon": 16.650347
+  },
+  {
+    "city": "Dzierżoniów",
+    "name": "Os. Jasne",
+    "id": "74",
+    "lat": 50.7345,
+    "lon": 16.65039
+  },
+  {
+    "city": "Dzierżoniów",
+    "name": "Os. Tęczowe",
+    "id": "75",
+    "lat": 50.738377,
+    "lon": 16.63946
+  },
+  {
+    "city": "Dzierżoniów",
+    "name": "Lidl",
+    "id": "76",
+    "lat": 50.737877,
+    "lon": 16.638063
+  },
+  {
+    "city": "Dzierżoniów",
+    "name": "Bar Kaprys",
+    "id": "77",
+    "lat": 50.734825,
+    "lon": 16.641203
+  },
+  {
+    "city": "Dzierżoniów",
+    "name": "Diora",
+    "id": "78",
+    "lat": 50.733635,
+    "lon": 16.642597
+  },
+  {
+    "city": "Dzierżoniów",
+    "name": "Kościuszki",
+    "id": "79",
+    "lat": 50.72971,
+    "lon": 16.642878
+  },
+  {
+    "city": "Dzierżoniów",
+    "name": "Kościuszki",
+    "id": "80",
+    "lat": 50.7311,
+    "lon": 16.64439
+  },
+  {
+    "city": "Dzierżoniów",
+    "name": "Dworzec PKP",
+    "id": "81",
+    "lat": 50.72497,
+    "lon": 16.64064
+  },
+  {
+    "city": "Dzierżoniów",
+    "name": "Kilińskiego",
+    "id": "83",
+    "lat": 50.72597,
+    "lon": 16.636505
+  },
+  {
+    "city": "Dzierżoniów",
+    "name": "Zajezdnia PKS",
+    "id": "84",
+    "lat": 50.724478,
+    "lon": 16.628973
+  },
+  {
+    "city": "Dzierżoniów",
+    "name": "Dzierżoniów DT.Ślązak",
+    "id": "85",
+    "lat": 50.72577,
+    "lon": 16.645712
+  },
+  {
+    "city": "Dzierżoniów",
+    "name": "Dworzec PKS Kopernika",
+    "id": "86",
+    "lat": 50.724808,
+    "lon": 16.64929
+  },
+  {
+    "city": "Dzierżoniów",
+    "name": "Dworzec PKS Kopernika",
+    "id": "87",
+    "lat": 50.72458,
+    "lon": 16.650711
+  },
+  {
+    "city": "Dzierżoniów",
+    "name": "Wrocławska (szkoła nr 4)",
+    "id": "88",
+    "lat": 50.736084,
+    "lon": 16.658693
+  },
+  {
+    "city": "Dzierżoniów",
+    "name": "Wrocławska (szkoła nr 4)",
+    "id": "89",
+    "lat": 50.7365,
+    "lon": 16.658848
+  },
+  {
+    "city": "Dzierżoniów",
+    "name": "Cmentarz Komunalny",
+    "id": "90",
+    "lat": 50.738705,
+    "lon": 16.66233
+  },
+  {
+    "city": "Dobrocin",
+    "name": "Korczaka",
+    "id": "91",
+    "lat": 50.739624,
+    "lon": 16.655668
+  },
+  {
+    "city": "Dzierżoniów",
+    "name": "Korczaka",
+    "id": "92",
+    "lat": 50.740208,
+    "lon": 16.6547
+  },
+  {
+    "city": "Dzierżoniów",
+    "name": "Sikorskiego II",
+    "id": "95",
+    "lat": 50.738997,
+    "lon": 16.649824
+  },
+  {
+    "city": "Dzierżoniów",
+    "name": "Sikorskiego II",
+    "id": "96",
+    "lat": 50.739758,
+    "lon": 16.650967
+  },
+  {
+    "city": "Dzierżoniów",
+    "name": "Os. Błękitne",
+    "id": "97",
+    "lat": 50.737556,
+    "lon": 16.641567
+  },
+  {
+    "city": "Dzierżoniów",
+    "name": "Bielawska Stadion",
+    "id": "101",
+    "lat": 50.73311,
+    "lon": 16.65678
+  },
+  {
+    "city": "Dzierżoniów",
+    "name": "Brzegowa",
+    "id": "102",
+    "lat": 50.72824,
+    "lon": 16.638483
+  },
+  {
+    "city": "Dzierżoniów",
+    "name": "Dolny Nowowiejska",
+    "id": "107",
+    "lat": 50.746597,
+    "lon": 16.62078
+  },
+  {
+    "city": "Dzierżoniów",
+    "name": "Nowowiejska",
+    "id": "108",
+    "lat": 50.741074,
+    "lon": 16.626644
+  },
+  {
+    "city": "Dzierżoniów",
+    "name": "Kasztanowa",
+    "id": "109",
+    "lat": 50.747353,
+    "lon": 16.63943
+  },
+  {
+    "city": "Dzierżoniów",
+    "name": "Nowowiejska Szkoła",
+    "id": "112",
+    "lat": 50.739548,
+    "lon": 16.631926
+  },
+  {
+    "city": "Dzierżoniów",
+    "name": "Ogródki działkowe",
+    "id": "113",
+    "lat": 50.730199,
+    "lon": 16.673143
+  },
+  {
+    "city": "Dzierżoniów",
+    "name": "Ogródki działkowe",
+    "id": "114",
+    "lat": 50.730371,
+    "lon": 16.673616
+  },
+  {
+    "city": "Dzierżoniów",
+    "name": "Os. Zielone",
+    "id": "115",
+    "lat": 50.743446,
+    "lon": 16.638636
+  },
+  {
+    "city": "Dzierżoniów",
+    "name": "Os. Zielone II",
+    "id": "116",
+    "lat": 50.743736,
+    "lon": 16.63485
+  },
+  {
+    "city": "Dzierżoniów",
+    "name": "Staszica",
+    "id": "120",
+    "lat": 50.720474,
+    "lon": 16.657818
+  },
+  {
+    "city": "Dzierżoniów",
+    "name": "Staszica",
+    "id": "121",
+    "lat": 50.720207,
+    "lon": 16.65726
+  },
+  {
+    "city": "Dzierżoniów",
+    "name": "Strefa Ekonomiczna",
+    "id": "122",
+    "lat": 50.729378,
+    "lon": 16.630026
+  },
+  {
+    "city": "Dzierżoniów",
+    "name": "Strefa Metzeler",
+    "id": "123",
+    "lat": 50.726864,
+    "lon": 16.63007
+  },
+  {
+    "city": "Dzierżoniów",
+    "name": "Strefa Orion",
+    "id": "124",
+    "lat": 50.728985,
+    "lon": 16.625547
+  },
+  {
+    "city": "Dzierżoniów",
+    "name": "Świdnicka Polmozbyt",
+    "id": "125",
+    "lat": 50.7477,
+    "lon": 16.626863
+  },
+  {
+    "city": "Dzierżoniów",
+    "name": "Technika Szpitalna",
+    "id": "126",
+    "lat": 50.733444,
+    "lon": 16.634298
+  },
+  {
+    "city": "Dzierżoniów",
+    "name": "Technika Szpitalna",
+    "id": "127",
+    "lat": 50.734158,
+    "lon": 16.635187
+  },
+  {
+    "city": "Dzierżoniów",
+    "name": "ul. Strefowa",
+    "id": "128",
+    "lat": 50.731995,
+    "lon": 16.622787
+  },
+  {
+    "city": "Dzierżoniów",
+    "name": "Wojska Polskiego I",
+    "id": "130",
+    "lat": 50.72242,
+    "lon": 16.66591
+  },
+  {
+    "city": "Dzierżoniów",
+    "name": "Wojska Polskiego I",
+    "id": "131",
+    "lat": 50.7231,
+    "lon": 16.664986
+  },
+  {
+    "city": "Dzierżoniów",
+    "name": "Zajezdnia PKS",
+    "id": "133",
+    "lat": 50.72469,
+    "lon": 16.629684
+  },
+  {
+    "city": "Dzierżoniów",
+    "name": "Ząbkowicka",
+    "id": "135",
+    "lat": 50.727097,
+    "lon": 16.65664
+  },
+  {
+    "city": "Dzierżoniów",
+    "name": "Ząbkowicka",
+    "id": "136",
+    "lat": 50.72701,
+    "lon": 16.65679
+  },
+  {
+    "city": "Dzierżoniów",
+    "name": "Złota II",
+    "id": "137",
+    "lat": 50.735424,
+    "lon": 16.636745
+  },
+  {
+    "city": "Dzierżoniów",
+    "name": "Złota III",
+    "id": "138",
+    "lat": 50.73934,
+    "lon": 16.64219
+  },
+  {
+    "city": "Dzierżoniów",
+    "name": "Złota Kotłownia",
+    "id": "139",
+    "lat": 50.741596,
+    "lon": 16.64249
+  },
+  {
+    "city": "Dzierżoniów",
+    "name": "Kilińskiego",
+    "id": "140",
+    "lat": 50.72567,
+    "lon": 16.635357
+  },
+  {
+    "city": "Dzierżoniów",
+    "name": "Wojska Polskiego II",
+    "id": "141",
+    "lat": 50.71972,
+    "lon": 16.668531
+  },
+  {
+    "city": "Pieszyce",
+    "name": "Ogrodowa",
+    "id": "142",
+    "lat": 50.714973,
+    "lon": 16.586992
+  },
+  {
+    "city": "Pieszyce",
+    "name": "Ogrodowa",
+    "id": "143",
+    "lat": 50.7149,
+    "lon": 16.587008
+  },
+  {
+    "city": "Pieszyce",
+    "name": "Urząd Miejski",
+    "id": "144",
+    "lat": 50.711327,
+    "lon": 16.582878
+  },
+  {
+    "city": "Pieszyce",
+    "name": "Urząd Miejski",
+    "id": "145",
+    "lat": 50.71148,
+    "lon": 16.583193
+  },
+  {
+    "city": "Pieszyce",
+    "name": "Kino",
+    "id": "146",
+    "lat": 50.7067,
+    "lon": 16.577242
+  },
+  {
+    "city": "Pieszyce",
+    "name": "Kino",
+    "id": "147",
+    "lat": 50.70562,
+    "lon": 16.57608
+  },
+  {
+    "city": "Pieszyce",
+    "name": "IX Oddział",
+    "id": "148",
+    "lat": 50.702644,
+    "lon": 16.572123
+  },
+  {
+    "city": "Pieszyce",
+    "name": "IX Oddział",
+    "id": "149",
+    "lat": 50.703598,
+    "lon": 16.573303
+  },
+  {
+    "city": "Pieszyce",
+    "name": "Sklep",
+    "id": "150",
+    "lat": 50.699455,
+    "lon": 16.56842
+  },
+  {
+    "city": "Pieszyce",
+    "name": "Sklep",
+    "id": "151",
+    "lat": 50.69979,
+    "lon": 16.569092
+  },
+  {
+    "city": "Pieszyce",
+    "name": "VII Oddział",
+    "id": "152",
+    "lat": 50.69591,
+    "lon": 16.563013
+  },
+  {
+    "city": "Pieszyce",
+    "name": "VII Oddział",
+    "id": "153",
+    "lat": 50.695454,
+    "lon": 16.56231
+  },
+  {
+    "city": "Pieszyce",
+    "name": "Mostek",
+    "id": "154",
+    "lat": 50.691254,
+    "lon": 16.55474
+  },
+  {
+    "city": "Pieszyce",
+    "name": "Mostek",
+    "id": "155",
+    "lat": 50.691406,
+    "lon": 16.555271
+  },
+  {
+    "city": "Kamionki",
+    "name": "Dolne",
+    "id": "156",
+    "lat": 50.686054,
+    "lon": 16.546013
+  },
+  {
+    "city": "Kamionki",
+    "name": "Dolne",
+    "id": "157",
+    "lat": 50.686043,
+    "lon": 16.546066
+  },
+  {
+    "city": "Kamionki",
+    "name": "I",
+    "id": "158",
+    "lat": 50.681282,
+    "lon": 16.543455
+  },
+  {
+    "city": "Kamionki",
+    "name": "I",
+    "id": "159",
+    "lat": 50.681282,
+    "lon": 16.543455
+  },
+  {
+    "city": "Kamionki",
+    "name": "II",
+    "id": "160",
+    "lat": 50.67624,
+    "lon": 16.544386
+  },
+  {
+    "city": "Kamionki",
+    "name": "II",
+    "id": "161",
+    "lat": 50.67624,
+    "lon": 16.544386
+  },
+  {
+    "city": "Kamionki",
+    "name": "III",
+    "id": "162",
+    "lat": 50.67231,
+    "lon": 16.542805
+  },
+  {
+    "city": "Pieszyce",
+    "name": "Bielawska",
+    "id": "163",
+    "lat": 50.715767,
+    "lon": 16.587015
+  },
+  {
+    "city": "Pieszyce",
+    "name": "Bielawska",
+    "id": "164",
+    "lat": 50.715942,
+    "lon": 16.586248
+  },
+  {
+    "city": "Pieszyce",
+    "name": "Sanatoryjna",
+    "id": "165",
+    "lat": 50.712395,
+    "lon": 16.57129
+  },
+  {
+    "city": "Pieszyce",
+    "name": "Sanatoryjna",
+    "id": "166",
+    "lat": 50.71236,
+    "lon": 16.571424
+  },
+  {
+    "city": "Pieszyce",
+    "name": "Urząd Miejski",
+    "id": "167",
+    "lat": 50.712204,
+    "lon": 16.580366
+  },
+  {
+    "city": "Pieszyce",
+    "name": "Urząd Miejski",
+    "id": "168",
+    "lat": 50.712307,
+    "lon": 16.581278
+  },
+  {
+    "city": "Rościszów",
+    "name": "I",
+    "id": "169",
+    "lat": 50.708862,
+    "lon": 16.54834
+  },
+  {
+    "city": "Rościszów",
+    "name": "I",
+    "id": "170",
+    "lat": 50.709232,
+    "lon": 16.55071
+  },
+  {
+    "city": "Rościszów",
+    "name": "II",
+    "id": "171",
+    "lat": 50.7073,
+    "lon": 16.54131
+  },
+  {
+    "city": "Rościszów",
+    "name": "II",
+    "id": "172",
+    "lat": 50.7073,
+    "lon": 16.541615
+  },
+  {
+    "city": "Rościszów",
+    "name": "III",
+    "id": "173",
+    "lat": 50.704136,
+    "lon": 16.534306
+  },
+  {
+    "city": "Rościszów",
+    "name": "III",
+    "id": "174",
+    "lat": 50.70398,
+    "lon": 16.534153
+  },
+  {
+    "city": "Rościszów",
+    "name": "IV",
+    "id": "175",
+    "lat": 50.705532,
+    "lon": 16.52534
+  },
+  {
+    "city": "Piskorzów",
+    "name": "Kolonia Dorotka",
+    "id": "176",
+    "lat": 50.72873,
+    "lon": 16.56503
+  },
+  {
+    "city": "Piskorzów",
+    "name": "I",
+    "id": "177",
+    "lat": 50.73402,
+    "lon": 16.562267
+  },
+  {
+    "city": "Piskorzów",
+    "name": "II",
+    "id": "178",
+    "lat": 50.742004,
+    "lon": 16.571325
+  },
+  {
+    "city": "Piskorzów",
+    "name": "III",
+    "id": "179",
+    "lat": 50.747616,
+    "lon": 16.572157
+  },
+  {
+    "city": "Bratoszów",
+    "name": "I",
+    "id": "180",
+    "lat": 50.74459,
+    "lon": 16.590988
+  },
+  {
+    "city": "Bratoszów",
+    "name": "II",
+    "id": "181",
+    "lat": 50.74655,
+    "lon": 16.586311
+  },
+  {
+    "city": "Pieszyce",
+    "name": "Tkalnia",
+    "id": "182",
+    "lat": 50.722607,
+    "lon": 16.590324
+  },
+  {
+    "city": "Pieszyce",
+    "name": "Świdnicka",
+    "id": "183",
+    "lat": 50.7255,
+    "lon": 16.59462
+  },
+  {
+    "city": "Pieszyce",
+    "name": "Świdnicka",
+    "id": "184",
+    "lat": 50.72542,
+    "lon": 16.5948
+  },
+  {
+    "city": "Pieszyce",
+    "name": "Szkoła",
+    "id": "185",
+    "lat": 50.726315,
+    "lon": 16.596457
+  },
+  {
+    "city": "Pieszyce",
+    "name": "Kółko Rolnicze",
+    "id": "186",
+    "lat": 50.732914,
+    "lon": 16.605728
+  },
+  {
+    "city": "Pieszyce",
+    "name": "Dolne",
+    "id": "187",
+    "lat": 50.72542,
+    "lon": 16.59617
+  },
+  {
+    "city": "Piława Dolna",
+    "name": "POM",
+    "id": "189",
+    "lat": 50.713295,
+    "lon": 16.673279
+  },
+  {
+    "city": "Piława Dolna",
+    "name": "POM",
+    "id": "190",
+    "lat": 50.713093,
+    "lon": 16.673775
+  },
+  {
+    "city": "Piława Dolna",
+    "name": "I",
+    "id": "191",
+    "lat": 50.707954,
+    "lon": 16.678421
+  },
+  {
+    "city": "Piława Dolna",
+    "name": "I",
+    "id": "192",
+    "lat": 50.706745,
+    "lon": 16.68011
+  },
+  {
+    "city": "Piława Dolna",
+    "name": "Szkoła",
+    "id": "193",
+    "lat": 50.702843,
+    "lon": 16.686598
+  },
+  {
+    "city": "Piława Dolna",
+    "name": "Szkoła",
+    "id": "194",
+    "lat": 50.70264,
+    "lon": 16.687386
+  },
+  {
+    "city": "Piława Dolna",
+    "name": "Remiza",
+    "id": "195",
+    "lat": 50.69617,
+    "lon": 16.69527
+  },
+  {
+    "city": "Piława Dolna",
+    "name": "Remiza",
+    "id": "196",
+    "lat": 50.69747,
+    "lon": 16.694223
+  },
+  {
+    "city": "Piława Dolna",
+    "name": "B. Kościół",
+    "id": "197",
+    "lat": 50.692196,
+    "lon": 16.703856
+  },
+  {
+    "city": "Piława Dolna",
+    "name": "B. Kościół",
+    "id": "198",
+    "lat": 50.692245,
+    "lon": 16.703936
+  },
+  {
+    "city": "Piława Dolna",
+    "name": "Cz. Kościół",
+    "id": "199",
+    "lat": 50.68599,
+    "lon": 16.716272
+  },
+  {
+    "city": "Piława Dolna",
+    "name": "Cz. Kościół",
+    "id": "200",
+    "lat": 50.685802,
+    "lon": 16.716576
+  },
+  {
+    "city": "Piława Górna",
+    "name": "Staw",
+    "id": "202",
+    "lat": 50.682034,
+    "lon": 16.725636
+  },
+  {
+    "city": "Piława Górna",
+    "name": "Staw",
+    "id": "203",
+    "lat": 50.682335,
+    "lon": 16.72549
+  },
+  {
+    "city": "Piława Górna",
+    "name": "Os. Młyńskie",
+    "id": "204",
+    "lat": 50.683777,
+    "lon": 16.735926
+  },
+  {
+    "city": "Piława Górna",
+    "name": "Os. Młyńskie",
+    "id": "205",
+    "lat": 50.683826,
+    "lon": 16.736046
+  },
+  {
+    "city": "Piława Górna",
+    "name": "Żłobek",
+    "id": "206",
+    "lat": 50.68294,
+    "lon": 16.742548
+  },
+  {
+    "city": "Piława Górna",
+    "name": "Żłobek",
+    "id": "207",
+    "lat": 50.682735,
+    "lon": 16.744183
+  },
+  {
+    "city": "Piława Górna",
+    "name": "BoBo",
+    "id": "208",
+    "lat": 50.68193,
+    "lon": 16.75089
+  },
+  {
+    "city": "Piława Górna",
+    "name": "BoBo",
+    "id": "209",
+    "lat": 50.68203,
+    "lon": 16.75068
+  },
+  {
+    "city": "Piława Górna",
+    "name": "Kamieniołomy",
+    "id": "210",
+    "lat": 50.681957,
+    "lon": 16.759693
+  },
+  {
+    "city": "Piława Górna",
+    "name": "Kamieniołomy",
+    "id": "211",
+    "lat": 50.682297,
+    "lon": 16.760653
+  },
+  {
+    "city": "Piława Górna",
+    "name": "Szkoła",
+    "id": "212",
+    "lat": 50.681114,
+    "lon": 16.76681
+  },
+  {
+    "city": "Piława Górna",
+    "name": "Szkoła",
+    "id": "213",
+    "lat": 50.681076,
+    "lon": 16.766924
+  },
+  {
+    "city": "Piława Górna",
+    "name": "Dworzec PKP",
+    "id": "214",
+    "lat": 50.67751,
+    "lon": 16.77185
+  },
+  {
+    "city": "Piława Górna",
+    "name": "Dworzec PKP",
+    "id": "215",
+    "lat": 50.677578,
+    "lon": 16.771866
+  },
+  {
+    "city": "Kośmin",
+    "name": "I",
+    "id": "216",
+    "lat": 50.68899,
+    "lon": 16.782282
+  },
+  {
+    "city": "Kośmin",
+    "name": "I",
+    "id": "217",
+    "lat": 50.689,
+    "lon": 16.78215
+  },
+  {
+    "city": "Kośmin",
+    "name": "",
+    "id": "218",
+    "lat": 50.693787,
+    "lon": 16.781385
+  },
+  {
+    "city": "Piława Górna",
+    "name": "Kopanica",
+    "id": "219",
+    "lat": 50.67219,
+    "lon": 16.780787
+  },
+  {
+    "city": "Piława Górna",
+    "name": "Zakłady Mechaniczne",
+    "id": "220",
+    "lat": 50.675735,
+    "lon": 16.778835
+  },
+  {
+    "city": "Piława Górna",
+    "name": "Zakłady Mechaniczne",
+    "id": "221",
+    "lat": 50.6757,
+    "lon": 16.779728
+  },
+  {
+    "city": "Ostroszowice",
+    "name": "I",
+    "id": "223",
+    "lat": 50.653282,
+    "lon": 16.63374
+  },
+  {
+    "city": "Ostroszowice",
+    "name": "I",
+    "id": "224",
+    "lat": 50.653282,
+    "lon": 16.63374
+  },
+  {
+    "city": "Ostroszowice",
+    "name": "Sklep",
+    "id": "225",
+    "lat": 50.65012,
+    "lon": 16.636677
+  },
+  {
+    "city": "Ostroszowice",
+    "name": "Sklep",
+    "id": "226",
+    "lat": 50.649994,
+    "lon": 16.636738
+  },
+  {
+    "city": "Ostroszowice",
+    "name": "Poczta",
+    "id": "228",
+    "lat": 50.64385,
+    "lon": 16.63908
+  },
+  {
+    "city": "Ostroszowice",
+    "name": "Poczta",
+    "id": "229",
+    "lat": 50.643604,
+    "lon": 16.639465
+  },
+  {
+    "city": "Ostroszowice",
+    "name": "Zakład Stolarski",
+    "id": "230",
+    "lat": 50.639004,
+    "lon": 16.639643
+  },
+  {
+    "city": "Ostroszowice",
+    "name": "Zakład Stolarski",
+    "id": "231",
+    "lat": 50.639957,
+    "lon": 16.639126
+  },
+  {
+    "city": "Ostroszowice",
+    "name": "Ośrodek Zdrowia",
+    "id": "232",
+    "lat": 50.635265,
+    "lon": 16.642675
+  },
+  {
+    "city": "Ostroszowice",
+    "name": "Ośrodek Zdrowia",
+    "id": "233",
+    "lat": 50.63534,
+    "lon": 16.642769
+  },
+  {
+    "city": "Grodziszcze",
+    "name": "I",
+    "id": "235",
+    "lat": 50.629726,
+    "lon": 16.647371
+  },
+  {
+    "city": "Grodziszcze",
+    "name": "I",
+    "id": "236",
+    "lat": 50.6298,
+    "lon": 16.647335
+  },
+  {
+    "city": "Grodziszcze",
+    "name": "Sklep",
+    "id": "237",
+    "lat": 50.625397,
+    "lon": 16.653791
+  },
+  {
+    "city": "Rudnica",
+    "name": "I",
+    "id": "238",
+    "lat": 50.6205,
+    "lon": 16.659546
+  },
+  {
+    "city": "Rudnica",
+    "name": "I",
+    "id": "239",
+    "lat": 50.62028,
+    "lon": 16.660107
+  },
+  {
+    "city": "Rudnica",
+    "name": "II",
+    "id": "240",
+    "lat": 50.616367,
+    "lon": 16.66674
+  },
+  {
+    "city": "Rudnica",
+    "name": "II",
+    "id": "241",
+    "lat": 50.61641,
+    "lon": 16.666697
+  },
+  {
+    "city": "Rudnica",
+    "name": "III",
+    "id": "242",
+    "lat": 50.61192,
+    "lon": 16.6753
+  },
+  {
+    "city": "Rudnica",
+    "name": "III",
+    "id": "243",
+    "lat": 50.611935,
+    "lon": 16.67538
+  },
+  {
+    "city": "Jemna",
+    "name": "",
+    "id": "244",
+    "lat": 50.593258,
+    "lon": 16.651707
+  },
+  {
+    "city": "Dobrocin",
+    "name": "I",
+    "id": "245",
+    "lat": 50.73217,
+    "lon": 16.696562
+  },
+  {
+    "city": "Dobrocin",
+    "name": "I",
+    "id": "246",
+    "lat": 50.732098,
+    "lon": 16.69674
+  },
+  {
+    "city": "Dobrocin",
+    "name": "Sklep",
+    "id": "247",
+    "lat": 50.73382,
+    "lon": 16.706608
+  },
+  {
+    "city": "Dobrocin",
+    "name": "Sklep",
+    "id": "248",
+    "lat": 50.7337,
+    "lon": 16.706573
+  },
+  {
+    "city": "Dobrocin",
+    "name": "II",
+    "id": "249",
+    "lat": 50.737083,
+    "lon": 16.713688
+  },
+  {
+    "city": "Dobrocin",
+    "name": "II",
+    "id": "250",
+    "lat": 50.736935,
+    "lon": 16.712994
+  },
+  {
+    "city": "Roztocznik",
+    "name": "I",
+    "id": "251",
+    "lat": 50.739826,
+    "lon": 16.721035
+  },
+  {
+    "city": "Roztocznik",
+    "name": "I",
+    "id": "252",
+    "lat": 50.74045,
+    "lon": 16.72369
+  },
+  {
+    "city": "Roztocznik",
+    "name": "Wieś",
+    "id": "253",
+    "lat": 50.74412,
+    "lon": 16.732325
+  },
+  {
+    "city": "Roztocznik",
+    "name": "Wieś",
+    "id": "254",
+    "lat": 50.74406,
+    "lon": 16.732718
+  },
+  {
+    "city": "Roztocznik",
+    "name": "Wieś II",
+    "id": "255",
+    "lat": 50.74111,
+    "lon": 16.737907
+  },
+  {
+    "city": "Roztocznik",
+    "name": "Skrzyżowanie",
+    "id": "257",
+    "lat": 50.73995,
+    "lon": 16.73607
+  },
+  {
+    "city": "Roztocznik",
+    "name": "Skrzyżowanie",
+    "id": "258",
+    "lat": 50.740013,
+    "lon": 16.735992
+  },
+  {
+    "city": "Byszów",
+    "name": "",
+    "id": "259",
+    "lat": 50.728283,
+    "lon": 16.742521
+  },
+  {
+    "city": "Byszów",
+    "name": "",
+    "id": "260",
+    "lat": 50.72826,
+    "lon": 16.742294
+  },
+  {
+    "city": "Gilów",
+    "name": "I",
+    "id": "261",
+    "lat": 50.723866,
+    "lon": 16.75292
+  },
+  {
+    "city": "Gilów",
+    "name": "I",
+    "id": "262",
+    "lat": 50.723804,
+    "lon": 16.752934
+  },
+  {
+    "city": "Gilów",
+    "name": "Sklep",
+    "id": "263",
+    "lat": 50.721424,
+    "lon": 16.764414
+  },
+  {
+    "city": "Gilów",
+    "name": "Sklep",
+    "id": "264",
+    "lat": 50.721375,
+    "lon": 16.76444
+  },
+  {
+    "city": "Gilów",
+    "name": "Skrzyżowanie",
+    "id": "265",
+    "lat": 50.721565,
+    "lon": 16.776505
+  },
+  {
+    "city": "Gilów",
+    "name": "Skrzyżowanie",
+    "id": "266",
+    "lat": 50.721515,
+    "lon": 16.776781
+  },
+  {
+    "city": "Gilów",
+    "name": "II",
+    "id": "267",
+    "lat": 50.720264,
+    "lon": 16.784494
+  },
+  {
+    "city": "Gilów",
+    "name": "II",
+    "id": "268",
+    "lat": 50.72024,
+    "lon": 16.78396
+  },
+  {
+    "city": "Gola Dzierżoniowska",
+    "name": "I",
+    "id": "269",
+    "lat": 50.739067,
+    "lon": 16.7915
+  },
+  {
+    "city": "Gola Dzierżoniowska",
+    "name": "I",
+    "id": "270",
+    "lat": 50.73894,
+    "lon": 16.791567
+  },
+  {
+    "city": "Gola Dzierżoniowska",
+    "name": "",
+    "id": "271",
+    "lat": 50.737988,
+    "lon": 16.798302
+  },
+  {
+    "city": "Gola Dzierżoniowska",
+    "name": "",
+    "id": "272",
+    "lat": 50.73792,
+    "lon": 16.798246
+  },
+  {
+    "city": "Kietlin",
+    "name": "",
+    "id": "273",
+    "lat": 50.744945,
+    "lon": 16.8313
+  },
+  {
+    "city": "Kietlin",
+    "name": "",
+    "id": "274",
+    "lat": 50.7449,
+    "lon": 16.831114
+  },
+  {
+    "city": "Wilków Wielki",
+    "name": "Sklep",
+    "id": "277",
+    "lat": 50.751372,
+    "lon": 16.84728
+  },
+  {
+    "city": "Niemcza",
+    "name": "Os. Podmiejskie",
+    "id": "278",
+    "lat": 50.72181,
+    "lon": 16.828266
+  },
+  {
+    "city": "Niemcza",
+    "name": "Os. Podmiejskie",
+    "id": "279",
+    "lat": 50.72175,
+    "lon": 16.828228
+  },
+  {
+    "city": "Niemcza",
+    "name": "Dworzec PKP",
+    "id": "280",
+    "lat": 50.723362,
+    "lon": 16.836246
+  },
+  {
+    "city": "Niemcza",
+    "name": "Dworzec PKP",
+    "id": "281",
+    "lat": 50.723324,
+    "lon": 16.836338
+  },
+  {
+    "city": "Niemcza",
+    "name": "Słowackiego",
+    "id": "282",
+    "lat": 50.71568,
+    "lon": 16.837225
+  },
+  {
+    "city": "Niemcza",
+    "name": "Słowackiego",
+    "id": "283",
+    "lat": 50.71556,
+    "lon": 16.837076
+  },
+  {
+    "city": "Niemcza",
+    "name": "Remiza",
+    "id": "284",
+    "lat": 50.713505,
+    "lon": 16.833687
+  },
+  {
+    "city": "Nowa Wieś Niemczańska",
+    "name": "",
+    "id": "285",
+    "lat": 50.696056,
+    "lon": 16.822073
+  },
+  {
+    "city": "Nowa Wieś Niemczańska",
+    "name": "",
+    "id": "286",
+    "lat": 50.69654,
+    "lon": 16.82188
+  },
+  {
+    "city": "Przerzeczyn Zdrój",
+    "name": "",
+    "id": "287",
+    "lat": 50.68531,
+    "lon": 16.819641
+  },
+  {
+    "city": "Przerzeczyn Zdrój",
+    "name": "",
+    "id": "288",
+    "lat": 50.686077,
+    "lon": 16.820173
+  },
+  {
+    "city": "Przerzeczyn Zdrój",
+    "name": "Sklep",
+    "id": "289",
+    "lat": 50.685383,
+    "lon": 16.82396
+  },
+  {
+    "city": "Podlesie",
+    "name": "I",
+    "id": "290",
+    "lat": 50.69205,
+    "lon": 16.849892
+  },
+  {
+    "city": "Podlesie",
+    "name": "I",
+    "id": "291",
+    "lat": 50.692257,
+    "lon": 16.850395
+  },
+  {
+    "city": "Podlesie",
+    "name": "",
+    "id": "292",
+    "lat": 50.68715,
+    "lon": 16.857327
+  },
+  {
+    "city": "Ligota Mała",
+    "name": "",
+    "id": "293",
+    "lat": 50.682922,
+    "lon": 16.80927
+  },
+  {
+    "city": "Ligota Mała",
+    "name": "",
+    "id": "294",
+    "lat": 50.682983,
+    "lon": 16.809317
+  },
+  {
+    "city": "Pieszyce",
+    "name": "Os. Górskie",
+    "id": "296",
+    "lat": 50.698251,
+    "lon": 16.566805
+  },
+  {
+    "city": "Pieszyce",
+    "name": "Os. Górskie",
+    "id": "297",
+    "lat": 50.698332,
+    "lon": 16.566706
+  },
+  {
+    "city": "Bielawa",
+    "name": "Nowobielawska III",
+    "id": "301",
+    "lat": 50.655955,
+    "lon": 16.590685
+  },
+  {
+    "city": "Bielawa",
+    "name": "Nowobielawska III",
+    "id": "302",
+    "lat": 50.65519,
+    "lon": 16.589721
+  },
+  {
+    "city": "Dzierżoniów",
+    "name": "Strefowa I",
+    "id": "303",
+    "lat": 50.741978,
+    "lon": 16.612658
+  },
+  {
+    "city": "Dzierżoniów",
+    "name": "Strefowa II",
+    "id": "304",
+    "lat": 50.741516,
+    "lon": 16.612751
+  },
+  {
+    "city": "Dzierżoniów",
+    "name": "Strefowa III",
+    "id": "305",
+    "lat": 50.73605,
+    "lon": 16.616734
+  },
+  {
+    "city": "Bielawa",
+    "name": "Stacja Bielawa Zachodnia",
+    "id": "306",
+    "lat": 50.68458,
+    "lon": 16.605919
+  },
+  {
+    "city": "Nowizna",
+    "name": "12",
+    "id": "316",
+    "lat": 50.754936,
+    "lon": 16.618397
+  },
+  {
+    "city": "Nowizna",
+    "name": "18",
+    "id": "317",
+    "lat": 50.7568,
+    "lon": 16.612608
+  },
+  {
+    "city": "Nowizna",
+    "name": "19",
+    "id": "318",
+    "lat": 50.75708,
+    "lon": 16.612947
+  },
+  {
+    "city": "Mościsko",
+    "name": "Kolejowa",
+    "id": "319",
+    "lat": 50.78239,
+    "lon": 16.587938
+  },
+  {
+    "city": "Mościsko",
+    "name": "Szkoła",
+    "id": "326",
+    "lat": 50.77672,
+    "lon": 16.591785
+  },
+  {
+    "city": "Włóki",
+    "name": "102/2",
+    "id": "327",
+    "lat": 50.766037,
+    "lon": 16.63918
+  },
+  {
+    "city": "Włóki",
+    "name": "22",
+    "id": "328",
+    "lat": 50.77057,
+    "lon": 16.638739
+  },
+  {
+    "city": "Włóki",
+    "name": "23",
+    "id": "329",
+    "lat": 50.77076,
+    "lon": 16.63877
+  },
+  {
+    "city": "Włóki",
+    "name": "57",
+    "id": "330",
+    "lat": 50.777626,
+    "lon": 16.640625
+  },
+  {
+    "city": "Włóki",
+    "name": "57",
+    "id": "331",
+    "lat": 50.77873,
+    "lon": 16.641195
+  },
+  {
+    "city": "Włóki",
+    "name": "78",
+    "id": "332",
+    "lat": 50.782513,
+    "lon": 16.64534
+  },
+  {
+    "city": "Tuszyn",
+    "name": "47",
+    "id": "337",
+    "lat": 50.798053,
+    "lon": 16.647369
+  },
+  {
+    "city": "Tuszyn",
+    "name": "47",
+    "id": "338",
+    "lat": 50.798115,
+    "lon": 16.647148
+  },
+  {
+    "city": "Kiełczyn",
+    "name": "",
+    "id": "341",
+    "lat": 50.810326,
+    "lon": 16.640657
+  },
+  {
+    "city": "Kiełczyn",
+    "name": "",
+    "id": "342",
+    "lat": 50.810154,
+    "lon": 16.640303
+  },
+  {
+    "city": "Jędrzejowice",
+    "name": "20A",
+    "id": "343",
+    "lat": 50.813026,
+    "lon": 16.656872
+  },
+  {
+    "city": "Książnica",
+    "name": "27",
+    "id": "344",
+    "lat": 50.810623,
+    "lon": 16.610985
+  },
+  {
+    "city": "Książnica",
+    "name": "27",
+    "id": "345",
+    "lat": 50.810734,
+    "lon": 16.609962
+  },
+  {
+    "city": "Uciechów",
+    "name": "Wrocławska",
+    "id": "346",
+    "lat": 50.754017,
+    "lon": 16.681664
+  },
+  {
+    "city": "Uciechów",
+    "name": "Przedszkole",
+    "id": "347",
+    "lat": 50.75486,
+    "lon": 16.681715
+  },
+  {
+    "city": "Uciechów",
+    "name": "Cukiernia",
+    "id": "348",
+    "lat": 50.761074,
+    "lon": 16.676891
+  },
+  {
+    "city": "Uciechów",
+    "name": "Cukiernia",
+    "id": "349",
+    "lat": 50.76132,
+    "lon": 16.676624
+  },
+  {
+    "city": "Uciechów",
+    "name": "57",
+    "id": "350",
+    "lat": 50.767097,
+    "lon": 16.674658
+  },
+  {
+    "city": "Uciechów",
+    "name": "48",
+    "id": "351",
+    "lat": 50.765583,
+    "lon": 16.674465
+  },
+  {
+    "city": "Kietlice",
+    "name": "",
+    "id": "352",
+    "lat": 50.660777,
+    "lon": 16.673234
+  },
+  {
+    "city": "Owiesno",
+    "name": "88",
+    "id": "354",
+    "lat": 50.664845,
+    "lon": 16.687033
+  },
+  {
+    "city": "Owiesno",
+    "name": "85",
+    "id": "355",
+    "lat": 50.665134,
+    "lon": 16.68677
+  },
+  {
+    "city": "Owiesno",
+    "name": "111",
+    "id": "356",
+    "lat": 50.670967,
+    "lon": 16.682299
+  },
+  {
+    "city": "Owiesno",
+    "name": "124",
+    "id": "357",
+    "lat": 50.674465,
+    "lon": 16.683414
+  },
+  {
+    "city": "Owiesno",
+    "name": "132",
+    "id": "358",
+    "lat": 50.675,
+    "lon": 16.683296
+  },
+  {
+    "city": "Owiesno",
+    "name": "81",
+    "id": "359",
+    "lat": 50.66255,
+    "lon": 16.687244
+  },
+  {
+    "city": "Owiesno",
+    "name": "Kościół",
+    "id": "360",
+    "lat": 50.650387,
+    "lon": 16.691893
+  },
+  {
+    "city": "Ostroszowice",
+    "name": "Jodłownicka 114/1",
+    "id": "361",
+    "lat": 50.645844,
+    "lon": 16.626102
+  },
+  {
+    "city": "Ostroszowice",
+    "name": "Jodłownicka 117/16",
+    "id": "362",
+    "lat": 50.645622,
+    "lon": 16.624985
+  },
+  {
+    "city": "Jodłownik",
+    "name": "14",
+    "id": "363",
+    "lat": 50.6451,
+    "lon": 16.612593
+  },
+  {
+    "city": "Jodłownik",
+    "name": "9",
+    "id": "364",
+    "lat": 50.644974,
+    "lon": 16.612364
+  },
+  {
+    "city": "Nowizna",
+    "name": "12",
+    "id": "366",
+    "lat": 50.75487,
+    "lon": 16.618065
+  },
+  {
+    "city": "Ostroszowice",
+    "name": "Fabryka Mebli (stawy)",
+    "id": "2271",
+    "lat": 50.646768,
+    "lon": 16.631668
+  },
+  {
+    "city": "Ostroszowice",
+    "name": "Fabryka Mebli (stawy)",
+    "id": "2272",
+    "lat": 50.6466,
+    "lon": 16.631873
+  },
+  {
+    "city": "Tuszyn",
+    "name": "7",
+    "id": "3351",
+    "lat": 50.789116,
+    "lon": 16.648376
+  },
+  {
+    "city": "Tuszyn",
+    "name": "7",
+    "id": "3352",
+    "lat": 50.78913,
+    "lon": 16.648123
+  },
+  {
+    "city": "Tuszyn",
+    "name": "19A",
+    "id": "3361",
+    "lat": 50.79313,
+    "lon": 16.64719
+  },
+  {
+    "city": "Tuszyn",
+    "name": "19A",
+    "id": "3362",
+    "lat": 50.793224,
+    "lon": 16.647053
+  },
+  {
+    "city": "Kiełczyn",
+    "name": "94",
+    "id": "3391",
+    "lat": 50.803486,
+    "lon": 16.645825
+  },
+  {
+    "city": "Kiełczyn",
+    "name": "94",
+    "id": "3392",
+    "lat": 50.803425,
+    "lon": 16.645692
+  },
+  {
+    "city": "Kiełczyn",
+    "name": "25",
+    "id": "3401",
+    "lat": 50.80869,
+    "lon": 16.64349
+  },
+  {
+    "city": "Kiełczyn",
+    "name": "25",
+    "id": "3402",
+    "lat": 50.80874,
+    "lon": 16.643337
+  },
+  {
+    "city": "Jędrzejowice",
+    "name": "",
+    "id": "5001",
+    "lat": 50.818221,
+    "lon": 16.663202
+  },
+  {
+    "city": "Bielawa",
+    "name": "Park Handlowy",
+    "id": "5002",
+    "lat": 50.682865,
+    "lon": 16.631409
+  },
+  {
+    "city": "Dzierżoniów",
+    "name": "Cicha",
+    "id": "1122",
+    "lat": 50.731936,
+    "lon": 16.684421
+  },
+  {
+    "city": "Dzierżoniów",
+    "name": "Cicha",
+    "id": "1123",
+    "lat": 50.732015,
+    "lon": 16.684856
+  },
+  {
+    "city": "Byszów",
+    "name": "221",
+    "id": "5005",
+    "lat": 50.729265,
+    "lon": 16.741581
+  },
+  {
+    "city": "Dobrocin",
+    "name": "Szkoła",
+    "id": "5006",
+    "lat": 50.736197,
+    "lon": 16.710144
+  },
+  {
+    "city": "Przedborowa",
+    "name": "I",
+    "id": "5009",
+    "lat": 50.641599,
+    "lon": 16.724507
+  },
+  {
+    "city": "Przedborowa",
+    "name": "Kościół",
+    "id": "5011",
+    "lat": 50.635136,
+    "lon": 16.727811
+  }
+]

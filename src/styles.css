@@ -1,1 +1,90 @@
-/* You can add global styles to this file, and also import other style files */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+:root {
+  --popup-color: #fff;
+  --popup-background: rgba(0, 0, 0, 0.8);
+}
+
+.stop-icon {
+  background-color: #488fe9;
+  display: flex !important;
+  justify-content: center;
+  align-items: center;
+  color: #fff;
+}
+
+.leaflet-popup-content-wrapper {
+  background-color: var(--popup-background) !important;
+  color: var(--popup-color) !important;
+  min-width: 200px;
+  padding: 15px !important;
+}
+
+.stop-popup-buses-container {
+  display: flex;
+  justify-content: space-between;
+  gap: 2px;
+  font-size: 14px;
+}
+
+.stop-popup-title {
+  text-align: center;
+  font-weight: 600;
+  margin-bottom: 10px;
+  font-size: 15px;
+}
+
+.leaflet-popup-content {
+  width: 100% !important;
+  margin: 0 !important;
+}
+
+.leaflet-popup-tip {
+  background-color: var(--popup-background) !important;
+}
+
+.bus {
+  border: 1px solid #fff;
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: cover;
+  display: flex;
+  justify-content: center;
+  align-items: end;
+  font-weight: 600;
+  border-radius: 100%;
+  z-index: 10;
+}
+
+.bus-late {
+  background-image: url("../public/assets/img/bus_late.png");
+}
+
+.bus-ahead {
+  background-image: url("../public/assets/img/bus_ahead.png");
+}
+
+.bus-on-time {
+  background-image: url("../public/assets/img/bus_on_time.png");
+}
+
+.bus-line-number {
+  position: absolute;
+  transform: translateY(27px);
+  text-shadow: 0 0 4px #fff;
+  color: #000;
+  width: 100%;
+  text-align: center;
+}
+
+.bus-popup {
+  min-width: 250px;
+}
+
+.stop-popup {
+  min-width: 350px;
+}

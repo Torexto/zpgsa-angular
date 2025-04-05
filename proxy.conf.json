@@ -1,0 +1,10 @@
+{
+  "/assets/data/buses.json": {
+    "target": "http://bielawa.trapeze.fi/bussit/web?command=olmapvehicles&action=getVehicles",
+    "secure": false,
+    "changeOrigin": true,
+    "pathRewrite": {
+      "^/assets/data/buses.json": ""
+    }
+  }
+}
