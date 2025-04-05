@@ -121,8 +121,9 @@ export class MapComponent implements OnInit {
                 icon: L.divIcon({
                   iconSize: L.point(30, 30),
                   className: `bus ${bus.icon}`,
-                  html: `<div class="bus-line-number">${bus.line}</div>`
-                })
+                  html: `<div class="bus-line-number">${bus.line}</div>`,
+                }),
+                zIndexOffset: 100
               })
 
               marker.on('click', (event) => {
