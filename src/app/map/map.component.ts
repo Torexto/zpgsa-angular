@@ -111,47 +111,16 @@ export class MapComponent implements OnInit {
 
   private initBusesLoop() {
     setInterval(() => {
-      this.http.get('/assets/data/buses.json').subscribe(
+      this.http.get('https://zpgsa-server.onrender.com/buses').subscribe(
         (buses: any) => {
           buses.forEach((bus: any) => {
-
-            const {id, destination, deviation, label, lat, lon, line} = bus;
-
-            const abs_deviation = Math.abs(deviation);
-            let hours = (abs_deviation / 3600000);
-            let minutes = Math.floor((abs_deviation % 3600000) / 60000);
-            let seconds = ((abs_deviation % 60000) / 1000);
-
-            let deviation_string = bus.deviation < 0 ? "-" : "+";
-
-            if (abs_deviation >= 3600000) {
-              deviation_string += hours + ":";
-            }
-            deviation_string += minutes + ":" + seconds;
-
-            let icon: string;
-
-            if (bus.deviation > 0) {
-              if (minutes >= 3) {
-                icon = "bus-late"
-              } else {
-                icon = "bus-on-time"
-              }
-            } else {
-              if (minutes >= 1) {
-                icon = "bus-ahead"
-              } else {
-                icon = "bus-on-time"
-              }
-            }
-
             if (this.markers[bus.id]) {
-              this.markers[bus.id].setLatLng(L.latLng(lat, lon));
+              this.markers[bus.id].setLatLng(L.latLng(bus.lat, bus.lon));
             } else {
-              const marker = new L.Marker(L.latLng(lat, lon), {
+              const marker = new L.Marker(L.latLng(bus.lat, bus.lon), {
                 icon: L.divIcon({
                   iconSize: L.point(30, 30),
-                  className: `bus ${icon}`,
+                  className: `bus ${bus.icon}`,
                   html: `<div class="bus-line-number">${bus.line}</div>`
                 })
               })
@@ -159,9 +128,9 @@ export class MapComponent implements OnInit {
               marker.on('click', (event) => {
                 const popupContent = new L.Popup({className: "bus-popup"}).setContent(`
                 <div>
-                    <div>Linia ${line} | ${label.slice(0, 3)}</div>
-                    <div>${destination}</div>
-                    <div>Odchyłka: ${deviation_string}</div>
+                    <div>Linia ${bus.line} | ${bus.label.slice(0, 3)}</div>
+                    <div>${bus.destination}</div>
+                    <div>Odchyłka: ${bus.deviation}</div>
                 </div>
                 `);
 
