@@ -88,3 +88,7 @@
 .stop-popup {
   min-width: 350px;
 }
+
+svg.leaflet-attribution-flag {
+  display: none !important;
+}
