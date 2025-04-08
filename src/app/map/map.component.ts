@@ -58,10 +58,10 @@ export class MapComponent implements OnInit {
   });
 
   ngOnInit() {
+    this.initMap();
     this.loadStopsDetails();
     this.loadStops();
     this.initBusesLoop();
-    this.initMap();
   }
 
   private initMap() {
@@ -74,31 +74,7 @@ export class MapComponent implements OnInit {
       attribution: '&copy; OpenStreetMap contributors'
     }).addTo(this.map);
 
-
     this.markersCluster.addTo(this.map);
-  }
-
-  private loadStops() {
-    this.http.get<Stop[]>('assets/data/stops.json').subscribe(stops => {
-      stops.forEach((stop) => {
-        if (!this.map) return;
-
-        const marker = new L.Marker(L.latLng(stop.lat, stop.lon))
-
-        marker.on('click', (event) => {
-          if (!this.stopsDetails) return;
-
-          const stopDetails = this.stopsDetails[stop.id];
-          const filteredStopDetails = filterStopDetails(stopDetails);
-
-          const popupContent = new L.Popup({className: "stop-popup"}).setContent(this.makeStopPopup(stop, filteredStopDetails))
-
-          event.target.unbindPopup().bindPopup(popupContent).openPopup();
-        })
-
-        this.markersCluster.addLayer(marker);
-      });
-    });
   }
 
   private loadStopsDetails() {
@@ -109,57 +85,96 @@ export class MapComponent implements OnInit {
     )
   }
 
+  private createStopMarker(stop: Stop) {
+    const marker = new L.Marker(L.latLng(stop.lat, stop.lon))
+
+    marker.on('click', (event) => {
+      if (!this.stopsDetails) return;
+
+      const stopDetails = this.stopsDetails[stop.id];
+      const filteredStopDetails = filterStopDetails(stopDetails);
+
+      const popupContent = new L.Popup().setContent(this.makeStopPopup(stop, filteredStopDetails))
+
+      event.target.unbindPopup().bindPopup(popupContent).openPopup();
+    })
+
+    return marker;
+  }
+
+  private loadStops() {
+    this.http.get<Stop[]>('assets/data/stops.json').subscribe(stops => {
+      stops.forEach((stop) => {
+        if (!this.map) return;
+
+        const marker = this.createStopMarker(stop);
+
+        this.markersCluster.addLayer(marker);
+      });
+    });
+  }
+
   private initBusesLoop() {
     setInterval(() => {
-      this.http.get('https://zpgsa-server.onrender.com/buses').subscribe(
-        (buses: any) => {
+      this.http.get<Bus[]>('https://zpgsa-server.onrender.com/buses').subscribe(
+        (buses) => {
           buses.forEach((bus: any) => {
             if (this.markers[bus.id]) {
               this.markers[bus.id].setLatLng(L.latLng(bus.lat, bus.lon));
-            } else {
-              const marker = new L.Marker(L.latLng(bus.lat, bus.lon), {
-                icon: L.divIcon({
-                  iconSize: L.point(30, 30),
-                  className: `bus ${bus.icon}`,
-                  html: `<div class="bus-line-number">${bus.line}</div>`,
-                }),
-                zIndexOffset: 100
-              })
-
-              marker.on('click', (event) => {
-                const popupContent = new L.Popup({className: "bus-popup"}).setContent(`
-                <div>
-                    <div>Linia ${bus.line} | ${bus.label.slice(0, 3)}</div>
-                    <div>${bus.destination}</div>
-                    <div>Odchyłka: ${bus.deviation}</div>
-                </div>
-                `);
-
-                event.target.unbindPopup().bindPopup(popupContent).openPopup();
-              })
-
-              if (!this.map) return;
-              marker.addTo(this.map);
-              this.markers[bus.id] = marker;
+              return;
             }
+
+            const marker = new L.Marker(L.latLng(bus.lat, bus.lon), {
+              icon: this.createBusIcon(bus),
+              zIndexOffset: 100
+            })
+
+            marker.on('click', (event) => {
+              const popupContent = new L.Popup().setContent(this.makeBusPopup(bus));
+
+              event.target.unbindPopup().bindPopup(popupContent).openPopup();
+            })
+
+            if (!this.map) return;
+            marker.addTo(this.map);
+
+            this.markers[bus.id] = marker;
           })
         }
       )
     }, 500)
   }
 
+  private makeBusPopup(bus: Bus) {
+    return `
+       <div class="bus-popup-container">
+        <div>Linia ${bus.line} | ${bus.label}</div>
+        <div>${bus.destination}</div>
+        <div>Odchyłka: ${bus.deviation}</div>
+       </div>
+    `;
+  }
+
+  private createBusIcon(bus: Bus) {
+    return new L.DivIcon({
+      iconSize: L.point(30, 30),
+      className: `bus-icon ${bus.icon}`,
+      html: `
+        <div class="bus-line-number">${bus.line}</div>
+      `
+    });
+  }
+
   private makeStopPopup(stop: Stop, stopDetails: StopDetails) {
     const stopDetailsBuses = stopDetails.buses.map(bus => {
       return `
         <div class="stop-popup-buses-container">
-         <div style="display: flex; gap: 10px">
-          <div style="width: 32px; text-align: center">${bus.line}</div>
-          <div>${bus.destination}</div>
-         </div>
-         <div>${bus.time}</div>
+         <div class="stop-popup-buses-line">${bus.line}</div>
+         <div class="stop-popup-buses-destination">${bus.destination}</div>
+         <div class="stop-popup-buses-time">${bus.time}</div>
         </div>
       `
-    }).join("")
+    }).join("");
 
     return `
       <div>
@@ -173,7 +188,7 @@ export class MapComponent implements OnInit {
 
   private createStopIcon(count: number = 1) {
     return new L.DivIcon({
-      iconSize: [15, 15],
+      iconSize: L.point(15, 15),
       className: 'stop-icon',
       html: `<span>${count}</span>`
     })

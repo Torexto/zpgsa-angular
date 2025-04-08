@@ -5,37 +5,13 @@
 }
 
 :root {
-  --popup-color: #fff;
   --popup-background: rgba(0, 0, 0, 0.8);
-}
-
-.stop-icon {
-  background-color: #488fe9;
-  display: flex !important;
-  justify-content: center;
-  align-items: center;
-  color: #fff;
 }
 
 .leaflet-popup-content-wrapper {
   background-color: var(--popup-background) !important;
-  color: var(--popup-color) !important;
-  min-width: 200px;
+  color: white !important;
   padding: 15px !important;
-}
-
-.stop-popup-buses-container {
-  display: flex;
-  justify-content: space-between;
-  gap: 2px;
-  font-size: 14px;
-}
-
-.stop-popup-title {
-  text-align: center;
-  font-weight: 600;
-  margin-bottom: 10px;
-  font-size: 15px;
 }
 
 .leaflet-popup-content {
@@ -47,7 +23,19 @@
   background-color: var(--popup-background) !important;
 }
 
-.bus {
+svg.leaflet-attribution-flag {
+  display: none !important;
+}
+
+.stop-icon {
+  background-color: dodgerblue;
+  display: flex !important;
+  justify-content: center;
+  align-items: center;
+  color: white;
+}
+
+.bus-icon {
   border: 1px solid #fff;
   background-repeat: no-repeat;
   background-position: center;
@@ -72,23 +60,42 @@
   background-image: url("../public/assets/img/bus_on_time.png");
 }
 
+.stop-popup-title {
+  text-align: center;
+  text-wrap: nowrap;
+  font-weight: bold;
+  font-size: 16px;
+  padding-bottom: 10px;
+}
+
+.stop-popup-buses-container {
+  display: grid;
+  grid-template-columns: max-content 1fr max-content;
+  gap: 10px;
+  align-items: center;
+  padding: 3px 0;
+  white-space: nowrap;
+  font-size: 0.9rem;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.3);
+}
+
+.stop-popup-buses-line {
+  text-align: center;
+  width: 32px;
+}
+
+.stop-popup-buses-time {
+  padding-right: 10px;
+}
+
+.bus-popup-container {
+  text-wrap: nowrap;
+}
+
 .bus-line-number {
   position: absolute;
   transform: translateY(27px);
-  text-shadow: 0 0 4px #fff;
-  color: #000;
+  color: black;
   width: 100%;
   text-align: center;
-}
-
-.bus-popup {
-  min-width: 250px;
-}
-
-.stop-popup {
-  min-width: 350px;
-}
-
-svg.leaflet-attribution-flag {
-  display: none !important;
 }
