@@ -16,7 +16,8 @@ const daysFreeFromSchool: Date[] = [
 
 const holidays: Date[] = [
   {day: 6, month: 1}, {day: 19, month: 6}, {day: 1, month: 11}, {day: 1, month: 1}, {day: 6, month: 1}, {day: 23, month: 12},
-  {day: 24, month: 12}, {day: 25, month: 12}
+  {day: 24, month: 12}, {day: 25, month: 12},{day: 17, month: 4}, {day: 18, month: 4},{day: 19, month: 4}, {day: 20, month: 4},
+  {day: 21, month: 4}, {day: 1, month: 5}, {day: 3, month: 5}
 ];
 
 const filterBuses = (date: DateTime, buses: StopDetailsBus[]): StopDetailsBus[] => {
