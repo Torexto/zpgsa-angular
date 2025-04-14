@@ -7,15 +7,17 @@ type Date = {
 };
 
 const daysFreeFromSchool: Date[] = [
-  {day: 1, month: 1}, {day: 6, month: 1}, {day: 23, month: 12}, {day: 24, month: 12},
-  {day: 25, month: 12}, {day: 26, month: 12}, {day: 27, month: 12}, {day: 30, month: 12},
+  {day: 26, month: 12}, {day: 27, month: 12}, {day: 30, month: 12},
   {day: 31, month: 12}, {day: 2, month: 1}, {day: 3, month: 1}, {day: 3, month: 2},
   {day: 4, month: 2}, {day: 5, month: 2}, {day: 6, month: 2}, {day: 7, month: 2},
   {day: 10, month: 2}, {day: 11, month: 2}, {day: 12, month: 2}, {day: 13, month: 2},
   {day: 14, month: 2}
 ];
 
-const holidays: Date[] = [{day: 6, month: 1}];
+const holidays: Date[] = [
+  {day: 6, month: 1}, {day: 19, month: 6}, {day: 1, month: 11}, {day: 1, month: 1}, {day: 6, month: 1}, {day: 23, month: 12},
+  {day: 24, month: 12}, {day: 25, month: 12}
+];
 
 const filterBuses = (date: DateTime, buses: StopDetailsBus[]): StopDetailsBus[] => {
   const now = {day: date.day, month: date.month};
