@@ -46,18 +46,19 @@ svg.leaflet-attribution-flag {
   font-weight: 600;
   border-radius: 100%;
   z-index: 10;
+  background-image: url("../public/assets/img/bus.png");
 }
 
 .bus-late {
-  background-image: url("../public/assets/img/bus_late.png");
+  background-color: #ff6a00;
 }
 
 .bus-ahead {
-  background-image: url("../public/assets/img/bus_ahead.png");
+  background-color: red;
 }
 
 .bus-on-time {
-  background-image: url("../public/assets/img/bus_on_time.png");
+  background-color: #307fe2;
 }
 
 .stop-popup-title {

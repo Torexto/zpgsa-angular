@@ -3,6 +3,8 @@ import L from 'leaflet';
 import 'leaflet.markercluster';
 import {HttpClient} from '@angular/common/http';
 import {filterStopDetails} from './filterStopDetails';
+import filterBus, {ZpgsaBus} from './filterBus';
+import {firstValueFrom} from 'rxjs';
 
 export type Bus = {
   id: string;
@@ -10,6 +12,8 @@ export type Bus = {
   lat: number;
   lon: number;
   line: string;
+  route: string,
+  latest_route_stop: string,
   deviation: string;
   icon: string;
   destination: string;
@@ -34,6 +38,17 @@ export type StopDetailsBus = {
   destination: string;
   operating_days: string;
   school_restriction: string;
+}
+
+export type Route = {
+  id: string;
+  label: string;
+  lat: string;
+  lon: string;
+  name: string;
+  order: string;
+  platform: string;
+  stopId: string;
 }
 
 @Component({
@@ -116,9 +131,11 @@ export class MapComponent implements OnInit {
 
   private initBusesLoop() {
     setInterval(() => {
-      this.http.get<Bus[]>('https://zpgsa-server.onrender.com/buses').subscribe(
+      this.http.get<ZpgsaBus[]>('/api/buses').subscribe(
         (buses) => {
-          buses.forEach((bus: any) => {
+          buses.forEach((_bus) => {
+            const bus = filterBus(_bus);
+
             if (this.markers[bus.id]) {
               this.markers[bus.id].setLatLng(L.latLng(bus.lat, bus.lon));
               return;
@@ -129,8 +146,11 @@ export class MapComponent implements OnInit {
               zIndexOffset: 100
             })
 
-            marker.on('click', (event) => {
+            marker.on('click', async (event) => {
               const popupContent = new L.Popup().setContent(this.makeBusPopup(bus));
+
+              const routes = await this.getRoute(bus);
+              console.log(routes);
 
               event.target.unbindPopup().bindPopup(popupContent).openPopup();
             })
@@ -192,5 +212,14 @@ export class MapComponent implements OnInit {
       className: 'stop-icon',
       html: `<span>${count}</span>`
     })
+  }
+
+  private async getRoute(bus: Bus): Promise<Route[]> {
+    const routes = await firstValueFrom(this.http.get<Route[]>(`/api/routes/${bus.route}`));
+
+    const currentOrder = routes.find(route => route.stopId === bus.latest_route_stop)?.order;
+    if (!currentOrder) return [];
+
+    return routes.filter(route => parseInt(route.order) > parseInt(currentOrder));
   }
 }
