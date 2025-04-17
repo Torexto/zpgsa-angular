@@ -53,15 +53,21 @@ export type Route = {
 
 @Component({
   selector: 'app-map',
-  template: '<div id="map"></div>',
+  templateUrl: './map.component.html',
   styleUrl: './map.component.css'
 })
 export class MapComponent implements OnInit {
   private http = inject(HttpClient);
 
   private map: L.Map | undefined;
+  private stops: Stop[] | undefined;
   private stopsDetails: Record<string, StopDetails> | undefined;
-  private markers: Record<string, L.Marker> = {};
+  private busMarkers: Record<string, L.Marker> = {};
+
+  private currentRoute: L.Polyline | null = null;
+  private currentRouteBusId: string | null = null;
+
+  public features: boolean = false;
 
   private markersCluster: L.MarkerClusterGroup = new L.MarkerClusterGroup({
     iconCreateFunction: (cluster) => this.createStopIcon(cluster.getChildCount()),
@@ -77,6 +83,11 @@ export class MapComponent implements OnInit {
     this.loadStopsDetails();
     this.loadStops();
     this.initBusesLoop();
+  }
+
+  public toggleFeatures() {
+    this.features = !this.features;
+    if (this.currentRoute && this.map) this.map.removeLayer(this.currentRoute);
   }
 
   private initMap() {
@@ -119,6 +130,8 @@ export class MapComponent implements OnInit {
 
   private loadStops() {
     this.http.get<Stop[]>('assets/data/stops.json').subscribe(stops => {
+      this.stops = stops;
+
       stops.forEach((stop) => {
         if (!this.map) return;
 
@@ -136,8 +149,13 @@ export class MapComponent implements OnInit {
           buses.forEach((_bus) => {
             const bus = filterBus(_bus);
 
-            if (this.markers[bus.id]) {
-              this.markers[bus.id].setLatLng(L.latLng(bus.lat, bus.lon));
+            if (this.busMarkers[bus.id]) {
+              this.busMarkers[bus.id].setLatLng(L.latLng(bus.lat, bus.lon));
+              if (this.currentRouteBusId === bus.id && this.currentRoute) {
+                const updatedLatLon = this.currentRoute.getLatLngs();
+                updatedLatLon[0] = L.latLng(bus.lat, bus.lon);
+                this.currentRoute.setLatLngs(updatedLatLon);
+              }
               return;
             }
 
@@ -147,10 +165,25 @@ export class MapComponent implements OnInit {
             })
 
             marker.on('click', async (event) => {
+              if (!this.map) return;
+
+              this.currentRouteBusId = bus.id;
+
               const popupContent = new L.Popup().setContent(this.makeBusPopup(bus));
 
-              const routes = await this.getRoute(bus);
-              console.log(routes);
+              if (this.features) {
+                const routes = await this.getRoute(bus);
+
+                const paths = routes.map(route => {
+                  const stop = this.stops?.find(stop => stop.id === route.stopId);
+                  if (!stop) return [0, 0];
+                  return [stop.lat, stop.lon];
+                }).filter(([lat, lon]) => lat !== 0 && lon !== 0) as L.LatLngExpression[];
+
+                if (this.currentRoute) this.map.removeLayer(this.currentRoute);
+
+                this.currentRoute = new L.Polyline([[bus.lat, bus.lon], ...paths], {color: 'red'}).addTo(this.map);
+              }
 
               event.target.unbindPopup().bindPopup(popupContent).openPopup();
             })
@@ -158,8 +191,8 @@ export class MapComponent implements OnInit {
             if (!this.map) return;
             marker.addTo(this.map);
 
-            this.markers[bus.id] = marker;
-          })
+            this.busMarkers[bus.id] = marker;
+          });
         }
       )
     }, 500)
