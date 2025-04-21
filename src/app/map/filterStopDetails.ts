@@ -11,7 +11,7 @@ const daysFreeFromSchool: Date[] = [
   {day: 31, month: 12}, {day: 2, month: 1}, {day: 3, month: 1}, {day: 3, month: 2},
   {day: 4, month: 2}, {day: 5, month: 2}, {day: 6, month: 2}, {day: 7, month: 2},
   {day: 10, month: 2}, {day: 11, month: 2}, {day: 12, month: 2}, {day: 13, month: 2},
-  {day: 14, month: 2}
+  {day: 14, month: 2}, {day: 22, month: 4}
 ];
 
 const holidays: Date[] = [
