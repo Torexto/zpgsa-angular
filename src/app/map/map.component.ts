@@ -146,46 +146,37 @@ export class MapComponent implements OnInit {
     setInterval(() => {
       this.http.get<ZpgsaBus[]>('/api/buses').subscribe(
         (buses) => {
-          buses.forEach((_bus) => {
+          buses.forEach(async (_bus) => {
             const bus = filterBus(_bus);
 
             if (this.busMarkers[bus.id]) {
               this.busMarkers[bus.id].setLatLng(L.latLng(bus.lat, bus.lon));
+              this.busMarkers[bus.id].setIcon(this.createBusIcon(bus));
+
               if (this.currentRouteBusId === bus.id && this.currentRoute) {
                 const updatedLatLon = this.currentRoute.getLatLngs();
                 updatedLatLon[0] = L.latLng(bus.lat, bus.lon);
                 this.currentRoute.setLatLngs(updatedLatLon);
+                await this.updateRoute(bus);
               }
+
               return;
             }
 
             const marker = new L.Marker(L.latLng(bus.lat, bus.lon), {
               icon: this.createBusIcon(bus),
-              zIndexOffset: 100
+              zIndexOffset: 100,
             })
+
+            marker.bindPopup(new L.Popup());
 
             marker.on('click', async (event) => {
               if (!this.map) return;
 
               this.currentRouteBusId = bus.id;
+              await this.updateRoute(bus);
 
-              const popupContent = new L.Popup().setContent(this.makeBusPopup(bus));
-
-              if (this.features) {
-                const routes = await this.getRoute(bus);
-
-                const paths = routes.map(route => {
-                  const stop = this.stops?.find(stop => stop.id === route.stopId);
-                  if (!stop) return [0, 0];
-                  return [stop.lat, stop.lon];
-                }).filter(([lat, lon]) => lat !== 0 && lon !== 0) as L.LatLngExpression[];
-
-                if (this.currentRoute) this.map.removeLayer(this.currentRoute);
-
-                this.currentRoute = new L.Polyline([[bus.lat, bus.lon], ...paths], {color: 'red'}).addTo(this.map);
-              }
-
-              event.target.unbindPopup().bindPopup(popupContent).openPopup();
+              event.target.getPopup().setContent(this.makeBusPopup(bus)).openPopup();
             })
 
             if (!this.map) return;
@@ -254,5 +245,25 @@ export class MapComponent implements OnInit {
     if (!currentOrder) return [];
 
     return routes.filter(route => parseInt(route.order) > parseInt(currentOrder));
+  }
+
+  private async updateRoute(bus: Bus) {
+    if (!this.map) return;
+
+    if (!this.features) return; // temporary
+
+    const routes = await this.getRoute(bus);
+
+    const paths = routes
+      .map(route => {
+        const stop = this.stops?.find(stop => stop.id === route.stopId);
+        return stop ? [stop.lat, stop.lon] : [0, 0];
+      })
+      .filter(([lat, lon]) => lat !== 0 && lon !== 0) as L.LatLngExpression[];
+
+    const fullPath = [L.latLng(bus.lat, bus.lon), ...paths];
+
+    if (this.currentRoute) this.map.removeLayer(this.currentRoute);
+    this.currentRoute = new L.Polyline(fullPath, {color: 'red'}).addTo(this.map);
   }
 }
