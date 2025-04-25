@@ -112,7 +112,22 @@ export class MapComponent implements OnInit {
   }
 
   private createStopMarker(stop: Stop) {
-    const marker = new L.Marker(L.latLng(stop.lat, stop.lon))
+    if (!this.map) return;
+
+    const marker = new L.Marker(L.latLng(stop.lat, stop.lon));
+    marker.bindPopup(new L.Popup());
+
+    let pressTimer: ReturnType<typeof setTimeout>;
+
+    marker.on("mousedown", () => {
+      pressTimer = setTimeout(() => {
+        window.open("https://zpgsa.bielawa.pl/wp-content/uploads/2025/03/BusDzierzoniow-Pilsudskieg.pdf");
+      }, 500);
+    });
+
+    marker.on("mouseup, mouseout", () => {
+      clearTimeout(pressTimer);
+    });
 
     marker.on('click', (event) => {
       if (!this.stopsDetails) return;
@@ -120,10 +135,8 @@ export class MapComponent implements OnInit {
       const stopDetails = this.stopsDetails[stop.id];
       const filteredStopDetails = filterStopDetails(stopDetails);
 
-      const popupContent = new L.Popup().setContent(this.makeStopPopup(stop, filteredStopDetails))
-
-      event.target.unbindPopup().bindPopup(popupContent).openPopup();
-    })
+      event.target.getPopup().setContent(this.makeStopPopup(stop, filteredStopDetails))
+    });
 
     return marker;
   }
@@ -135,7 +148,7 @@ export class MapComponent implements OnInit {
       stops.forEach((stop) => {
         if (!this.map) return;
 
-        const marker = this.createStopMarker(stop);
+        const marker = this.createStopMarker(stop)!;
 
         this.markersCluster.addLayer(marker);
       });
