@@ -117,17 +117,10 @@ export class MapComponent implements OnInit {
     const marker = new L.Marker(L.latLng(stop.lat, stop.lon));
     marker.bindPopup(new L.Popup());
 
-    let pressTimer: ReturnType<typeof setTimeout>;
-
-    marker.on("mousedown", () => {
-      pressTimer = setTimeout(() => {
-        window.open("https://zpgsa.bielawa.pl/wp-content/uploads/2025/03/BusDzierzoniow-Pilsudskieg.pdf");
-      }, 500);
-    });
-
-    marker.on("mouseup, mouseout", () => {
-      clearTimeout(pressTimer);
-    });
+    marker.on("contextmenu", () => {
+      console.log("contextmenu");
+      window.open("https://zpgsa.bielawa.pl/wp-content/uploads/2025/03/BusDzierzoniow-Pilsudskieg.pdf");
+    })
 
     marker.on('click', (event) => {
       if (!this.stopsDetails) return;
