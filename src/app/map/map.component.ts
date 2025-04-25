@@ -25,6 +25,7 @@ export interface Stop {
   id: string;
   lat: number;
   lon: number;
+  href: string;
 }
 
 export interface StopDetails {
@@ -119,7 +120,7 @@ export class MapComponent implements OnInit {
     const marker = new L.Marker(L.latLng(stop.lat, stop.lon));
     marker.bindPopup(new L.Popup());
 
-    marker.on("contextmenu", () => window.open("https://zpgsa.bielawa.pl/wp-content/uploads/2025/03/BusDzierzoniow-Pilsudskieg.pdf"));
+    marker.on("contextmenu", () => window.open(stop.href));
 
     marker.on('click', (event) => {
       const stopDetails = this.stopsDetails![stop.id];
@@ -129,7 +130,6 @@ export class MapComponent implements OnInit {
 
     return marker;
   }
-
 
   private initBusesLoop() {
     setInterval(() => {
@@ -169,8 +169,14 @@ export class MapComponent implements OnInit {
     });
 
     marker.on("contextmenu", async () => {
-      this.currentRouteBusId = bus.id;
-      await this.updateRoute(bus);
+      if (this.currentRouteBusId === bus.id) {
+        this.currentRouteBusId = null;
+        if (this.currentRoute) this.map!.removeLayer(this.currentRoute);
+      } else {
+        this.currentRouteBusId = bus.id;
+        await this.updateRoute(bus);
+      }
+
     });
 
     this.busMarkers[bus.id] = marker;
