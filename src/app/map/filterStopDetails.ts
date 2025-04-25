@@ -1,10 +1,10 @@
 import {DateTime} from 'luxon';
 import {StopDetails, StopDetailsBus} from './map.component';
 
-type Date = {
+interface Date {
   day: number;
   month: number;
-};
+}
 
 const daysFreeFromSchool: Date[] = [
   {day: 26, month: 12}, {day: 27, month: 12}, {day: 30, month: 12},
@@ -61,7 +61,7 @@ export const filterStopDetails = (stop: StopDetails): StopDetails => {
       const timeA = DateTime.fromFormat(a.time.trim(), 'HH:mm');
       const timeB = DateTime.fromFormat(b.time.trim(), 'HH:mm');
       return timeA.toMillis() - timeB.toMillis();
-    })
+    });
     filteredBuses = [...filteredBuses, ...extended];
   }
 

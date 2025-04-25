@@ -6,7 +6,7 @@ import {filterStopDetails} from './filterStopDetails';
 import filterBus, {ZpgsaBus} from './filterBus';
 import {firstValueFrom} from 'rxjs';
 
-export type Bus = {
+export interface Bus {
   id: string;
   label: string;
   lat: number;
@@ -17,22 +17,22 @@ export type Bus = {
   deviation: string;
   icon: string;
   destination: string;
-};
+}
 
-export type Stop = {
+export interface Stop {
   city: string;
   name: string;
   id: string;
   lat: number;
   lon: number;
-};
+}
 
-export type StopDetails = {
+export interface StopDetails {
   id: string;
   buses: StopDetailsBus[];
-};
+}
 
-export type StopDetailsBus = {
+export interface StopDetailsBus {
   time: string;
   line: string;
   destination: string;
@@ -40,7 +40,7 @@ export type StopDetailsBus = {
   school_restriction: string;
 }
 
-export type Route = {
+export interface Route {
   id: string;
   label: string;
   lat: string;
@@ -60,34 +60,24 @@ export class MapComponent implements OnInit {
   private http = inject(HttpClient);
 
   private map: L.Map | undefined;
+
   private stops: Stop[] | undefined;
   private stopsDetails: Record<string, StopDetails> | undefined;
+
   private busMarkers: Record<string, L.Marker> = {};
 
   private currentRoute: L.Polyline | null = null;
   private currentRouteBusId: string | null = null;
 
-  public features: boolean = false;
-
-  private markersCluster: L.MarkerClusterGroup = new L.MarkerClusterGroup({
-    iconCreateFunction: (cluster) => this.createStopIcon(cluster.getChildCount()),
-    showCoverageOnHover: false,
-    zoomToBoundsOnClick: true,
-    animate: true,
-    singleMarkerMode: true,
-    maxClusterRadius: 30
-  });
+  private markersCluster: L.MarkerClusterGroup | undefined;
 
   ngOnInit() {
     this.initMap();
+
     this.loadStopsDetails();
     this.loadStops();
-    this.initBusesLoop();
-  }
 
-  public toggleFeatures() {
-    this.features = !this.features;
-    if (this.currentRoute && this.map) this.map.removeLayer(this.currentRoute);
+    this.initBusesLoop();
   }
 
   private initMap() {
@@ -100,102 +90,94 @@ export class MapComponent implements OnInit {
       attribution: '&copy; OpenStreetMap contributors'
     }).addTo(this.map);
 
+    this.markersCluster = new L.MarkerClusterGroup({
+      iconCreateFunction: this.createStopIcon,
+      showCoverageOnHover: false,
+      zoomToBoundsOnClick: true,
+      animate: true,
+      singleMarkerMode: true,
+      maxClusterRadius: 30
+    });
+
     this.markersCluster.addTo(this.map);
   }
 
   private loadStopsDetails() {
-    this.http.get<Record<string, StopDetails>>('assets/data/stop_details.json').subscribe(
-      (data) => {
-        this.stopsDetails = data;
-      }
-    )
+    this.http.get<Record<string, StopDetails>>('assets/data/stop_details.json')
+      .subscribe((data) => this.stopsDetails = data);
+  }
+
+  private loadStops() {
+    this.http.get<Stop[]>('assets/data/stops.json')
+      .subscribe(stops => {
+        this.stops = stops;
+        stops.forEach((stop) => this.markersCluster!.addLayer(this.createStopMarker(stop)!));
+      });
   }
 
   private createStopMarker(stop: Stop) {
-    if (!this.map) return;
-
     const marker = new L.Marker(L.latLng(stop.lat, stop.lon));
     marker.bindPopup(new L.Popup());
 
-    marker.on("contextmenu", () => {
-      console.log("contextmenu");
-      window.open("https://zpgsa.bielawa.pl/wp-content/uploads/2025/03/BusDzierzoniow-Pilsudskieg.pdf");
-    })
+    marker.on("contextmenu", () => window.open("https://zpgsa.bielawa.pl/wp-content/uploads/2025/03/BusDzierzoniow-Pilsudskieg.pdf"));
 
     marker.on('click', (event) => {
-      if (!this.stopsDetails) return;
-
-      const stopDetails = this.stopsDetails[stop.id];
+      const stopDetails = this.stopsDetails![stop.id];
       const filteredStopDetails = filterStopDetails(stopDetails);
-
-      event.target.getPopup().setContent(this.makeStopPopup(stop, filteredStopDetails))
+      event.target.getPopup().setContent(this.createStopPopup(stop, filteredStopDetails));
     });
 
     return marker;
   }
 
-  private loadStops() {
-    this.http.get<Stop[]>('assets/data/stops.json').subscribe(stops => {
-      this.stops = stops;
-
-      stops.forEach((stop) => {
-        if (!this.map) return;
-
-        const marker = this.createStopMarker(stop)!;
-
-        this.markersCluster.addLayer(marker);
-      });
-    });
-  }
 
   private initBusesLoop() {
     setInterval(() => {
       this.http.get<ZpgsaBus[]>('/api/buses').subscribe(
         (buses) => {
           buses.forEach(async (_bus) => {
-            const bus = filterBus(_bus);
+              const bus = filterBus(_bus);
 
-            if (this.busMarkers[bus.id]) {
-              this.busMarkers[bus.id].setLatLng(L.latLng(bus.lat, bus.lon));
-              this.busMarkers[bus.id].setIcon(this.createBusIcon(bus));
+              if (this.busMarkers[bus.id]) {
+                this.busMarkers[bus.id].setLatLng(L.latLng(bus.lat, bus.lon));
+                this.busMarkers[bus.id].setIcon(this.createBusIcon(bus));
 
-              if (this.currentRouteBusId === bus.id && this.currentRoute) {
-                const updatedLatLon = this.currentRoute.getLatLngs();
-                updatedLatLon[0] = L.latLng(bus.lat, bus.lon);
-                this.currentRoute.setLatLngs(updatedLatLon);
-                await this.updateRoute(bus);
+                if (this.currentRouteBusId === bus.id && this.currentRoute) {
+                  await this.updateRoute(bus);
+                }
+
+                return;
               }
 
-              return;
+              this.createBusMarker(bus);
             }
-
-            const marker = new L.Marker(L.latLng(bus.lat, bus.lon), {
-              icon: this.createBusIcon(bus),
-              zIndexOffset: 100,
-            })
-
-            marker.bindPopup(new L.Popup());
-
-            marker.on('click', async (event) => {
-              if (!this.map) return;
-
-              this.currentRouteBusId = bus.id;
-              await this.updateRoute(bus);
-
-              event.target.getPopup().setContent(this.makeBusPopup(bus)).openPopup();
-            })
-
-            if (!this.map) return;
-            marker.addTo(this.map);
-
-            this.busMarkers[bus.id] = marker;
-          });
+          );
         }
-      )
-    }, 500)
+      );
+    }, 500);
   }
 
-  private makeBusPopup(bus: Bus) {
+  private createBusMarker(bus: Bus) {
+    const marker = new L.Marker(L.latLng(bus.lat, bus.lon), {
+      icon: this.createBusIcon(bus),
+      zIndexOffset: 100,
+    });
+    marker.bindPopup(new L.Popup());
+
+    marker.on('click', async (event) => {
+      event.target.getPopup().setContent(this.createBusPopup(bus)).openPopup();
+    });
+
+    marker.on("contextmenu", async () => {
+      this.currentRouteBusId = bus.id;
+      await this.updateRoute(bus);
+    });
+
+    this.busMarkers[bus.id] = marker;
+    marker.addTo(this.map!);
+  }
+
+  private createBusPopup(bus: Bus) {
     return `
        <div class="bus-popup-container">
         <div>Linia ${bus.line} | ${bus.label}</div>
@@ -215,7 +197,7 @@ export class MapComponent implements OnInit {
     });
   }
 
-  private makeStopPopup(stop: Stop, stopDetails: StopDetails) {
+  private createStopPopup(stop: Stop, stopDetails: StopDetails) {
     const stopDetailsBuses = stopDetails.buses.map(bus => {
       return `
         <div class="stop-popup-buses-container">
@@ -223,7 +205,7 @@ export class MapComponent implements OnInit {
          <div class="stop-popup-buses-destination">${bus.destination}</div>
          <div class="stop-popup-buses-time">${bus.time}</div>
         </div>
-      `
+      `;
     }).join("");
 
     return `
@@ -236,40 +218,41 @@ export class MapComponent implements OnInit {
     `;
   }
 
-  private createStopIcon(count: number = 1) {
+  private createStopIcon(cluster: L.MarkerCluster) {
     return new L.DivIcon({
       iconSize: L.point(15, 15),
       className: 'stop-icon',
-      html: `<span>${count}</span>`
-    })
+      html: `<span>${cluster.getChildCount()}</span>`
+    });
   }
 
   private async getRoute(bus: Bus): Promise<Route[]> {
-    const routes = await firstValueFrom(this.http.get<Route[]>(`/api/routes/${bus.route}`));
+    const route = await firstValueFrom(this.http.get<Route[]>(`/api/routes/${bus.route}`));
 
-    const currentOrder = routes.find(route => route.stopId === bus.latest_route_stop)?.order;
-    if (!currentOrder) return [];
+    const currentOrder = route.find(point => point.stopId === bus.latest_route_stop)?.order;
 
-    return routes.filter(route => parseInt(route.order) > parseInt(currentOrder));
+    return currentOrder ? route.filter(point => parseInt(point.order) > parseInt(currentOrder)) : [];
   }
 
   private async updateRoute(bus: Bus) {
-    if (!this.map) return;
+    const route = await this.getRoute(bus);
 
-    if (!this.features) return; // temporary
+    if (this.currentRoute) {
+      const updatedLatLon = this.currentRoute.getLatLngs();
+      updatedLatLon[0] = L.latLng(bus.lat, bus.lon);
+      this.currentRoute!.setLatLngs(updatedLatLon);
+    }
 
-    const routes = await this.getRoute(bus);
-
-    const paths = routes
-      .map(route => {
-        const stop = this.stops?.find(stop => stop.id === route.stopId);
+    const paths = route
+      .map(point => {
+        const stop = this.stops?.find(stop => stop.id === point.stopId);
         return stop ? [stop.lat, stop.lon] : [0, 0];
       })
       .filter(([lat, lon]) => lat !== 0 && lon !== 0) as L.LatLngExpression[];
 
     const fullPath = [L.latLng(bus.lat, bus.lon), ...paths];
 
-    if (this.currentRoute) this.map.removeLayer(this.currentRoute);
-    this.currentRoute = new L.Polyline(fullPath, {color: 'red'}).addTo(this.map);
+    if (this.currentRoute) this.map!.removeLayer(this.currentRoute);
+    this.currentRoute = new L.Polyline(fullPath, {color: 'red'}).addTo(this.map!);
   }
 }

@@ -1,6 +1,6 @@
 import {Bus} from './map.component';
 
-export type ZpgsaBus = {
+export interface ZpgsaBus {
   id: string;
   destination: string;
   line: string;
@@ -54,5 +54,5 @@ export default function filterBus(bus: ZpgsaBus): Bus {
     icon,
     destination: bus.destination,
 
-  }
+  };
 }
