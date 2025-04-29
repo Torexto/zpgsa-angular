@@ -121,7 +121,7 @@ export class MapComponent implements OnInit {
     marker.bindPopup(new L.Popup());
 
     marker.on("contextmenu", (e) => {
-      if (this.isIOS) {
+      if (this.isIOS()) {
         e.target.getPopup().setContent(`<a href='${stop.href}'>PDF</a>`).openPopup();
         return;
       }
@@ -273,7 +273,7 @@ isIOS(): boolean {
   const platform = window.navigator.platform;
 
   // For older iOS
-  const isOldiOS = /iPad|iPhone|iPod/.test(ua) && !window.MSStream;
+  const isOldiOS = /iPad|iPhone|iPod/.test(ua);
 
   // For iPadOS 13+ which reports as "MacIntel"
   const isNewiPadOS = platform === 'MacIntel' && 'ontouchend' in document;
