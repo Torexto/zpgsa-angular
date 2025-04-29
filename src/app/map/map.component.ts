@@ -124,7 +124,7 @@ export class MapComponent implements OnInit {
       if (this.isIOS()) {
         const content = `
           <div>
-            <a href="${stop.href}" target="_blank">Go to Example</a>
+            <a href="${stop.href}" target="_blank">PDF</a>
           </div>
         `;
 
