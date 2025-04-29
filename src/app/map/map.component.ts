@@ -122,10 +122,12 @@ export class MapComponent implements OnInit {
 
     marker.on("contextmenu", (e) => {
       if (this.isIOS()) {
+        alert("iOS");
         e.target.getPopup().setContent(`<a href='${stop.href}'>PDF</a>`).openPopup();
         return;
       }
-      window.open(stop.href)
+      alert("nie ios");
+      window.open(stop.href);
     });
 
     marker.on('click', (event) => {
