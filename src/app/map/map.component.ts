@@ -120,7 +120,13 @@ export class MapComponent implements OnInit {
     const marker = new L.Marker(L.latLng(stop.lat, stop.lon));
     marker.bindPopup(new L.Popup());
 
-    marker.on("contextmenu", () => window.open(stop.href));
+    marker.on("contextmenu", (e) => {
+      if (this.isIOS) {
+        e.target.getPopup().setContent(`<a href='${stop.href}'>PDF</a>`).openPopup();
+        return;
+      }
+      window.open(stop.href)
+    });
 
     marker.on('click', (event) => {
       const stopDetails = this.stopsDetails![stop.id];
@@ -260,5 +266,18 @@ export class MapComponent implements OnInit {
 
     if (this.currentRoute) this.map!.removeLayer(this.currentRoute);
     this.currentRoute = new L.Polyline(fullPath, {color: 'red'}).addTo(this.map!);
+  }
+
+isIOS(): boolean {
+  const ua = window.navigator.userAgent;
+  const platform = window.navigator.platform;
+
+  // For older iOS
+  const isOldiOS = /iPad|iPhone|iPod/.test(ua) && !window.MSStream;
+
+  // For iPadOS 13+ which reports as "MacIntel"
+  const isNewiPadOS = platform === 'MacIntel' && 'ontouchend' in document;
+
+  return isOldiOS || isNewiPadOS;
   }
 }
