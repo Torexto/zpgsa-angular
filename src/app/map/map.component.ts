@@ -131,7 +131,7 @@ export class MapComponent implements OnInit {
         L.popup()
           .setLatLng(e.latlng)
           .setContent(content)
-          .openOn(this.map);
+          .openOn(this.map!);
         
         return;
       }
