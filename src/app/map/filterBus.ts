@@ -8,6 +8,7 @@ export interface ZpgsaBus {
   deviation: number;
   lat: number;
   lon: number;
+  controlMan?: boolean;
 
   route: string;
   latestRouteStop: string;
@@ -39,7 +40,8 @@ export default function filterBus(bus: ZpgsaBus): Bus {
 
   const icon =
     deviation > 0
-      ? minutes >= 3 ? "bus-late" : "bus-on-time"
+      ? bus.controlMan ? "bus-control-man" :
+        minutes >= 3 ? "bus-late" : "bus-on-time"
       : minutes >= 1 ? "bus-ahead" : "bus-on-time";
 
   return {

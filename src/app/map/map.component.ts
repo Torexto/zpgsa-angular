@@ -1,4 +1,4 @@
-import {Component, inject, OnInit} from '@angular/core';
+import {AfterViewInit, Component, inject, OnInit} from '@angular/core';
 import L from 'leaflet';
 import 'leaflet.markercluster';
 import {HttpClient} from '@angular/common/http';
@@ -17,6 +17,7 @@ export interface Bus {
   deviation: string;
   icon: string;
   destination: string;
+  controlMan?: boolean;
 }
 
 export interface Stop {
@@ -52,12 +53,16 @@ export interface Route {
   stopId: string;
 }
 
+interface CustomMarker extends L.Marker {
+  customData: Bus;
+}
+
 @Component({
   selector: 'app-map',
   templateUrl: './map.component.html',
   styleUrl: './map.component.css'
 })
-export class MapComponent implements OnInit {
+export class MapComponent implements OnInit, AfterViewInit {
   private http = inject(HttpClient);
 
   private map: L.Map | undefined;
@@ -125,7 +130,7 @@ export class MapComponent implements OnInit {
         e.target.getPopup().setContent(`<a href='${stop.href}'>PDF</a>`).openPopup();
         return;
       }
-      window.open(stop.href)
+      window.open(stop.href);
     });
 
     marker.on('click', (event) => {
@@ -167,7 +172,9 @@ export class MapComponent implements OnInit {
     const marker = new L.Marker(L.latLng(bus.lat, bus.lon), {
       icon: this.createBusIcon(bus),
       zIndexOffset: 100,
-    });
+    }) as CustomMarker;
+
+    marker.customData = bus;
     marker.bindPopup(new L.Popup());
 
     marker.on('click', async (event) => {
@@ -191,12 +198,39 @@ export class MapComponent implements OnInit {
 
   private createBusPopup(bus: Bus) {
     return `
-       <div class="bus-popup-container">
-        <div>Linia ${bus.line} | ${bus.label}</div>
-        <div>${bus.destination}</div>
-        <div>Odchyłka: ${bus.deviation}</div>
-       </div>
-    `;
+    <div class="bus-popup-container">
+      <div>Linia ${bus.line} | ${bus.label}</div>
+      <div>${bus.destination}</div>
+      <div>Odchyłka: ${bus.deviation}</div>
+      <div>
+        <button class="controlManIcon" data-bus-id="${bus.id}">ControlMan</button>
+      </div>
+    </div>
+  `;
+  }
+
+  ngAfterViewInit() {
+    document.addEventListener('click', (event) => {
+      const target = event.target as HTMLElement;
+      if (target.classList.contains('controlManIcon')) {
+        const busId = target.getAttribute('data-bus-id');
+        if (busId) {
+          this.setControlMan(busId);
+        }
+      }
+    });
+  }
+
+  private setControlMan(busId: string) {
+    const marker = this.busMarkers[busId] as CustomMarker;
+    if (marker) {
+      const bus = marker.customData;
+      bus.controlMan = true;
+
+      setTimeout(() => {
+        bus.controlMan = false;
+      }, 10 * 60 * 1000);
+    }
   }
 
   private createBusIcon(bus: Bus) {
@@ -268,16 +302,12 @@ export class MapComponent implements OnInit {
     this.currentRoute = new L.Polyline(fullPath, {color: 'red'}).addTo(this.map!);
   }
 
-isIOS(): boolean {
-  const ua = window.navigator.userAgent;
-  const platform = window.navigator.platform;
+  isIOS(): boolean {
+    const userAgent = window.navigator.userAgent || '';
+    const isIOSDevice = /iPad|iPhone|iPod/.test(userAgent);
+    const isIPadOS13Plus = userAgent.includes('Macintosh') && 'ontouchend' in document;
 
-  // For older iOS
-  const isOldiOS = /iPad|iPhone|iPod/.test(ua);
+    return isIOSDevice || isIPadOS13Plus;
+  };
 
-  // For iPadOS 13+ which reports as "MacIntel"
-  const isNewiPadOS = platform === 'MacIntel' && 'ontouchend' in document;
-
-  return isOldiOS || isNewiPadOS;
-  }
 }
