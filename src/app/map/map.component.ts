@@ -5,6 +5,7 @@ import {HttpClient} from '@angular/common/http';
 import {filterStopDetails} from './filterStopDetails';
 import filterBus, {ZpgsaBus} from './filterBus';
 import {firstValueFrom} from 'rxjs';
+import platform from 'platform'
 
 export interface Bus {
   id: string;
@@ -121,7 +122,7 @@ export class MapComponent implements OnInit {
     marker.bindPopup(new L.Popup());
 
     marker.on("contextmenu", (e) => {
-      if (this.isIOS()) {
+      if (platform.os?.family === "iOS") {
         const content = `
           <div>
             <a href="${stop.href}" target="_blank">PDF</a>
@@ -132,10 +133,10 @@ export class MapComponent implements OnInit {
           .setLatLng(e.latlng)
           .setContent(content)
           .openOn(this.map!);
-        
+
         return;
       }
-      
+
       window.open(stop.href);
     });
 
@@ -156,8 +157,10 @@ export class MapComponent implements OnInit {
               const bus = filterBus(_bus);
 
               if (this.busMarkers[bus.id]) {
-                this.busMarkers[bus.id].setLatLng(L.latLng(bus.lat, bus.lon));
-                this.busMarkers[bus.id].setIcon(this.createBusIcon(bus));
+                const marker = this.busMarkers[bus.id];
+                marker.setLatLng(L.latLng(bus.lat, bus.lon));
+                marker.setIcon(this.createBusIcon(bus));
+                marker.getPopup()?.setContent(this.createBusPopup(bus));
 
                 if (this.currentRouteBusId === bus.id && this.currentRoute) {
                   await this.updateRoute(bus);
@@ -182,7 +185,7 @@ export class MapComponent implements OnInit {
     marker.bindPopup(new L.Popup());
 
     marker.on('click', async (event) => {
-      event.target.getPopup().setContent(this.createBusPopup(bus)).openPopup();
+      event.target.openPopup();
     });
 
     marker.on("contextmenu", async () => {
@@ -277,18 +280,5 @@ export class MapComponent implements OnInit {
 
     if (this.currentRoute) this.map!.removeLayer(this.currentRoute);
     this.currentRoute = new L.Polyline(fullPath, {color: 'red'}).addTo(this.map!);
-  }
-
-isIOS(): boolean {
-  const ua = window.navigator.userAgent;
-  const platform = window.navigator.platform;
-
-  // For older iOS
-  const isOldiOS = /iPad|iPhone|iPod/.test(ua);
-
-  // For iPadOS 13+ which reports as "MacIntel"
-  const isNewiPadOS = platform === 'MacIntel' && 'ontouchend' in document;
-
-  return isOldiOS || isNewiPadOS;
   }
 }
