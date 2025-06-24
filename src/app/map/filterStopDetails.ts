@@ -1,5 +1,5 @@
 import {DateTime} from 'luxon';
-import {StopDetails, StopDetailsBus} from './map.component';
+import {StopDetailsBus} from './map.component';
 
 interface Date {
   day: number;
@@ -46,18 +46,17 @@ const parseBusTime = (busTime: string, now: DateTime): DateTime | null => {
   return parsedTime.isValid ? parsedTime.set({year: now.year, month: now.month, day: now.day}) : null;
 };
 
-export const filterStopDetails = (stop: StopDetails): StopDetails => {
+export const filterStopDetails = (buses: StopDetailsBus[]): StopDetailsBus[] => {
   const nowDate = DateTime.now();
-  const id = stop.id;
 
-  let filteredBuses = filterBuses(nowDate, stop.buses);
+  let filteredBuses = filterBuses(nowDate, buses);
   filteredBuses = filteredBuses.filter(bus => {
     const busTime = parseBusTime(bus.time, nowDate);
     return busTime ? busTime >= nowDate : false;
   }).sort((a, b) => DateTime.fromFormat(a.time, 'HH:mm').toMillis() - DateTime.fromFormat(b.time, 'HH:mm').toMillis());
 
   if (filteredBuses.length < 15) {
-    const extended = (filterBuses(nowDate.plus({days: 1}), stop.buses)).sort((a, b) => {
+    const extended = (filterBuses(nowDate.plus({days: 1}), buses)).sort((a, b) => {
       const timeA = DateTime.fromFormat(a.time.trim(), 'HH:mm');
       const timeB = DateTime.fromFormat(b.time.trim(), 'HH:mm');
       return timeA.toMillis() - timeB.toMillis();
@@ -65,5 +64,5 @@ export const filterStopDetails = (stop: StopDetails): StopDetails => {
     filteredBuses = [...filteredBuses, ...extended];
   }
 
-  return {id, buses: filteredBuses.slice(0, 15)};
+  return filteredBuses.slice(0, 15);
 };

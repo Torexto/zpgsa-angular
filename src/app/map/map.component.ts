@@ -5,7 +5,7 @@ import {HttpClient} from '@angular/common/http';
 import {filterStopDetails} from './filterStopDetails';
 import filterBus, {ZpgsaBus} from './filterBus';
 import {firstValueFrom} from 'rxjs';
-import platform from 'platform'
+import platform from 'platform';
 
 export interface Bus {
   id: string;
@@ -27,11 +27,6 @@ export interface Stop {
   lat: number;
   lon: number;
   href: string;
-}
-
-export interface StopDetails {
-  id: string;
-  buses: StopDetailsBus[];
 }
 
 export interface StopDetailsBus {
@@ -64,7 +59,7 @@ export class MapComponent implements OnInit {
   private map: L.Map | undefined;
 
   private stops: Stop[] | undefined;
-  private stopsDetails: Record<string, StopDetails> | undefined;
+  private stopsDetails: Record<string, StopDetailsBus[]> | undefined;
 
   private busMarkers: Record<string, L.Marker> = {};
 
@@ -105,7 +100,7 @@ export class MapComponent implements OnInit {
   }
 
   private loadStopsDetails() {
-    this.http.get<Record<string, StopDetails>>('assets/data/stop_details.json')
+    this.http.get<Record<string, StopDetailsBus[]>>('assets/data/stop_details.json')
       .subscribe((data) => this.stopsDetails = data);
   }
 
@@ -141,6 +136,7 @@ export class MapComponent implements OnInit {
     });
 
     marker.on('click', (event) => {
+      console.log(stop.id);
       const stopDetails = this.stopsDetails![stop.id];
       const filteredStopDetails = filterStopDetails(stopDetails);
       event.target.getPopup().setContent(this.createStopPopup(stop, filteredStopDetails));
@@ -223,8 +219,8 @@ export class MapComponent implements OnInit {
     });
   }
 
-  private createStopPopup(stop: Stop, stopDetails: StopDetails) {
-    const stopDetailsBuses = stopDetails.buses.map(bus => {
+  private createStopPopup(stop: Stop, buses: StopDetailsBus[]) {
+    const stopDetailsBuses = buses.map(bus => {
       return `
         <div class="stop-popup-buses-container">
          <div class="stop-popup-buses-line">${bus.line}</div>
