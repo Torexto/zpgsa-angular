@@ -48,6 +48,70 @@ export interface Route {
   stopId: string;
 }
 
+
+function createBusPopup(bus: Bus) {
+  return `
+       <div class="bus-popup-container">
+        <div>Linia ${bus.line} | ${bus.label}</div>
+        <div>${bus.destination}</div>
+        <div>Odchyłka: ${bus.deviation}</div>
+       </div>
+    `;
+}
+
+function createBusIcon(bus: Bus) {
+  return new L.DivIcon({
+    iconSize: L.point(30, 30),
+    className: `bus-icon ${bus.icon}`,
+    html: `
+        <div class="bus-line-number">${bus.line}</div>
+      `
+  });
+}
+
+function createStopPopup(stop: Stop, buses: StopDetailsBus[]) {
+  const stopDetailsBuses = buses.map(bus => {
+    return `
+        <div class="stop-popup-buses-container">
+         <div class="stop-popup-buses-line">${bus.line}</div>
+         <div class="stop-popup-buses-destination">${bus.destination}</div>
+         <div class="stop-popup-buses-time">${bus.time}</div>
+        </div>
+      `;
+  }).join("");
+
+  return `
+      <div>
+        <div class="stop-popup-title">${stop.city} ${stop.name} (${stop.id})</div>
+        <div>
+            ${stopDetailsBuses}
+        </div>
+      </div>
+    `;
+}
+
+function createStopIcon(cluster: L.MarkerCluster) {
+  return new L.DivIcon({
+    iconSize: L.point(15, 15),
+    className: 'stop-icon',
+    html: `<span>${cluster.getChildCount()}</span>`
+  });
+}
+
+const mapConfig: L.MapOptions = {
+  center: L.latLng(50.71, 16.63),
+  zoom: 13,
+};
+
+const stopMarkersConfig: L.MarkerClusterGroupOptions = {
+  iconCreateFunction: createStopIcon,
+  showCoverageOnHover: false,
+  zoomToBoundsOnClick: true,
+  animate: true,
+  singleMarkerMode: true,
+  maxClusterRadius: 30
+};
+
 @Component({
   selector: 'app-map',
   templateUrl: './map.component.html',
@@ -56,60 +120,60 @@ export interface Route {
 export class MapComponent implements OnInit {
   private http = inject(HttpClient);
 
-  private map: L.Map | undefined;
+  private map!: L.Map;
+  private stops!: Stop[];
+  private stopsDetails!: Record<string, StopDetailsBus[]>;
+  private buses!: Bus[];
 
-  private stops: Stop[] | undefined;
-  private stopsDetails: Record<string, StopDetailsBus[]> | undefined;
-
-  private busMarkers: Record<string, L.Marker> = {};
+  private busMarkers: Record<string, L.Marker | undefined> = {};
 
   private currentRoute: L.Polyline | null = null;
   private currentRouteBusId: string | null = null;
 
-  private markersCluster: L.MarkerClusterGroup | undefined;
-
-  ngOnInit() {
-    this.initMap();
-
-    this.loadStopsDetails();
-    this.loadStops();
-
-    this.initBusesLoop();
-  }
-
-  private initMap() {
-    this.map = new L.Map('map', {
-      center: L.latLng(50.71, 16.63),
-      zoom: 13,
-    });
+  async ngOnInit() {
+    this.map = new L.Map('map', mapConfig);
 
     new L.TileLayer("https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png", {
       attribution: '&copy; OpenStreetMap contributors'
     }).addTo(this.map);
 
-    this.markersCluster = new L.MarkerClusterGroup({
-      iconCreateFunction: this.createStopIcon,
-      showCoverageOnHover: false,
-      zoomToBoundsOnClick: true,
-      animate: true,
-      singleMarkerMode: true,
-      maxClusterRadius: 30
-    });
+    this.stops = await firstValueFrom(
+      this.http.get<Stop[]>('assets/data/stops.json')
+    );
 
-    this.markersCluster.addTo(this.map);
+    this.stopsDetails = await firstValueFrom(
+      this.http.get<Record<string, StopDetailsBus[]>>('assets/data/stop_details.json')
+    );
+
+    const stopsLayer = new L.MarkerClusterGroup(stopMarkersConfig);
+    const stopMarkers = this.stops.map(stop => this.createStopMarker(stop));
+    stopsLayer.addLayers(stopMarkers);
+    stopsLayer.addTo(this.map);
+    this.initBusesLoop();
   }
 
-  private loadStopsDetails() {
-    this.http.get<Record<string, StopDetailsBus[]>>('assets/data/stop_details.json')
-      .subscribe((data) => this.stopsDetails = data);
-  }
+  private initBusesLoop() {
+    setInterval(() => {
+      this.http.get<ZpgsaBus[]>('/api/buses')
+        .subscribe((buses) => {
+            this.buses = buses.map(filterBus);
+            this.buses.forEach(async bus => {
+              const busMarker = this.busMarkers[bus.id];
 
-  private loadStops() {
-    this.http.get<Stop[]>('assets/data/stops.json')
-      .subscribe(stops => {
-        this.stops = stops;
-        stops.forEach((stop) => this.markersCluster!.addLayer(this.createStopMarker(stop)!));
-      });
+              if (!busMarker) {
+                this.createBusMarker(bus);
+                return;
+              }
+
+              busMarker.setLatLng(L.latLng(bus.lat, bus.lon));
+              busMarker.setIcon(createBusIcon(bus));
+              if (this.currentRouteBusId === bus.id && this.currentRoute) {
+                queueMicrotask(() => this.updateRoute(bus.id));
+              }
+            });
+          }
+        );
+    }, 500);
   }
 
   private createStopMarker(stop: Stop) {
@@ -135,146 +199,76 @@ export class MapComponent implements OnInit {
       window.open(stop.href);
     });
 
-    marker.on('click', (event) => {
-      console.log(stop.id);
-      const stopDetails = this.stopsDetails![stop.id];
+    marker.on('click', () => {
+      const stopDetails = this.stopsDetails?.[stop.id] ?? [];
       const filteredStopDetails = filterStopDetails(stopDetails);
-      event.target.getPopup().setContent(this.createStopPopup(stop, filteredStopDetails));
+      marker.getPopup()?.setContent(createStopPopup(stop, filteredStopDetails));
     });
 
     return marker;
   }
 
-  private initBusesLoop() {
-    setInterval(() => {
-      this.http.get<ZpgsaBus[]>('/api/buses').subscribe(
-        (buses) => {
-          buses.forEach(async (_bus) => {
-              const bus = filterBus(_bus);
-
-              if (this.busMarkers[bus.id]) {
-                const marker = this.busMarkers[bus.id];
-                marker.setLatLng(L.latLng(bus.lat, bus.lon));
-                marker.setIcon(this.createBusIcon(bus));
-                marker.getPopup()?.setContent(this.createBusPopup(bus));
-
-                if (this.currentRouteBusId === bus.id && this.currentRoute) {
-                  await this.updateRoute(bus);
-                }
-
-                return;
-              }
-
-              this.createBusMarker(bus);
-            }
-          );
-        }
-      );
-    }, 500);
-  }
-
   private createBusMarker(bus: Bus) {
     const marker = new L.Marker(L.latLng(bus.lat, bus.lon), {
-      icon: this.createBusIcon(bus),
+      icon: createBusIcon(bus),
       zIndexOffset: 100,
     });
     marker.bindPopup(new L.Popup());
 
-    marker.on('click', async (event) => {
-      event.target.openPopup();
+    marker.on('click', () => {
+      const busInfo = this.buses.find((bus1) => bus1.id === bus.id);
+      marker.getPopup()
+        ?.setContent(createBusPopup(busInfo!))
+        .openPopup();
     });
 
-    marker.on("contextmenu", async () => {
-      if (this.currentRouteBusId === bus.id) {
+    marker.on("contextmenu", () => {
+      if (this.currentRouteBusId === bus.id && this.currentRoute) {
         this.currentRouteBusId = null;
-        if (this.currentRoute) this.map!.removeLayer(this.currentRoute);
+        this.map.removeLayer(this.currentRoute);
+        this.currentRoute = null;
       } else {
         this.currentRouteBusId = bus.id;
-        await this.updateRoute(bus);
+        queueMicrotask(() => this.updateRoute(bus.id));
       }
-
     });
 
     this.busMarkers[bus.id] = marker;
-    marker.addTo(this.map!);
+    marker.addTo(this.map);
   }
 
-  private createBusPopup(bus: Bus) {
-    return `
-       <div class="bus-popup-container">
-        <div>Linia ${bus.line} | ${bus.label}</div>
-        <div>${bus.destination}</div>
-        <div>Odchyłka: ${bus.deviation}</div>
-       </div>
-    `;
-  }
-
-  private createBusIcon(bus: Bus) {
-    return new L.DivIcon({
-      iconSize: L.point(30, 30),
-      className: `bus-icon ${bus.icon}`,
-      html: `
-        <div class="bus-line-number">${bus.line}</div>
-      `
-    });
-  }
-
-  private createStopPopup(stop: Stop, buses: StopDetailsBus[]) {
-    const stopDetailsBuses = buses.map(bus => {
-      return `
-        <div class="stop-popup-buses-container">
-         <div class="stop-popup-buses-line">${bus.line}</div>
-         <div class="stop-popup-buses-destination">${bus.destination}</div>
-         <div class="stop-popup-buses-time">${bus.time}</div>
-        </div>
-      `;
-    }).join("");
-
-    return `
-      <div>
-        <div class="stop-popup-title">${stop.city} ${stop.name} (${stop.id})</div>
-        <div>
-            ${stopDetailsBuses}
-        </div>
-      </div>
-    `;
-  }
-
-  private createStopIcon(cluster: L.MarkerCluster) {
-    return new L.DivIcon({
-      iconSize: L.point(15, 15),
-      className: 'stop-icon',
-      html: `<span>${cluster.getChildCount()}</span>`
-    });
-  }
-
-  private async getRoute(bus: Bus): Promise<Route[]> {
-    const route = await firstValueFrom(this.http.get<Route[]>(`/api/routes/${bus.route}`));
+  private async getRoute(bus: Bus) {
+    const route = await firstValueFrom(
+      this.http.get<Route[]>(`/api/routes/${bus.route}`)
+    );
 
     const currentOrder = route.find(point => point.stopId === bus.latest_route_stop)?.order;
+    if (!currentOrder) return [];
 
-    return currentOrder ? route.filter(point => parseInt(point.order) > parseInt(currentOrder)) : [];
+    return route.filter(point => parseInt(point.order) > parseInt(currentOrder));
   }
 
-  private async updateRoute(bus: Bus) {
+  private async updateRoute(busId: string) {
+    const bus = this.buses.find((bus) => bus.id === busId)!;
     const route = await this.getRoute(bus);
 
     if (this.currentRoute) {
       const updatedLatLon = this.currentRoute.getLatLngs();
       updatedLatLon[0] = L.latLng(bus.lat, bus.lon);
-      this.currentRoute!.setLatLngs(updatedLatLon);
+      this.currentRoute.setLatLngs(updatedLatLon);
     }
 
     const paths = route
       .map(point => {
-        const stop = this.stops?.find(stop => stop.id === point.stopId);
+        const stop = this.stops.find(stop => stop.id === point.stopId);
         return stop ? [stop.lat, stop.lon] : [0, 0];
       })
       .filter(([lat, lon]) => lat !== 0 && lon !== 0) as L.LatLngExpression[];
 
     const fullPath = [L.latLng(bus.lat, bus.lon), ...paths];
 
-    if (this.currentRoute) this.map!.removeLayer(this.currentRoute);
-    this.currentRoute = new L.Polyline(fullPath, {color: 'red'}).addTo(this.map!);
+    if (this.currentRoute) this.map.removeLayer(this.currentRoute);
+    if (this.currentRouteBusId !== busId) return;
+    this.currentRoute = new L.Polyline(fullPath, {color: 'red'}).addTo(this.map);
   }
 }
