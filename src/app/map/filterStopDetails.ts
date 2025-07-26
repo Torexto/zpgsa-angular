@@ -34,13 +34,13 @@ const filterBuses = (date: DateTime, buses: StopDetailsBus[]): StopDetailsBus[] 
   const isHoliday = holidays.some(d => d.day === now.day && d.month === now.month);
 
   return buses.filter(bus => {
-    if (isHoliday) return bus.operating_days === 'sunday';
+    if (isHoliday) return bus.operating_days === 'sunday' || bus.operating_days === 'sun';
 
     switch (date.weekday) {
       case 7:
-        return bus.operating_days === 'sunday';
+        return bus.operating_days === 'sunday' || bus.operating_days === 'sun';
       case 6:
-        return bus.operating_days === 'saturday';
+        return bus.operating_days === 'saturday' || bus.operating_days === "sat";
       default: {
         const isSchoolDay = !daysFreeFromSchool.some(d => d.day === now.day && d.month === now.month);
         return bus.operating_days === 'mon_fri' &&

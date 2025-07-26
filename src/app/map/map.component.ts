@@ -201,7 +201,9 @@ export class MapComponent implements OnInit {
 
     marker.on('click', () => {
       const stopDetails = this.stopsDetails?.[stop.id] ?? [];
+      console.log(stopDetails);
       const filteredStopDetails = filterStopDetails(stopDetails);
+      console.log(filteredStopDetails);
       marker.getPopup()?.setContent(createStopPopup(stop, filteredStopDetails));
     });
 
