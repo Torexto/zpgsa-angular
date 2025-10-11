@@ -38,16 +38,11 @@ export interface StopDetailsBus {
 }
 
 export interface Route {
-  id: string;
-  label: string;
-  lat: string;
-  lon: string;
-  name: string;
-  order: string;
-  platform: string;
-  stopId: string;
+  "id": string;
+  "line": string;
+  "name": string;
+  "details": string[];
 }
-
 
 function createBusPopup(bus: Bus) {
   return `
@@ -90,6 +85,7 @@ function createStopPopup(stop: Stop, buses: StopDetailsBus[]) {
     `;
 }
 
+// @ts-expect-error it works
 function createStopIcon(cluster: L.MarkerCluster) {
   return new L.DivIcon({
     iconSize: L.point(15, 15),
@@ -103,6 +99,7 @@ const mapConfig: L.MapOptions = {
   zoom: 13,
 };
 
+// @ts-expect-error it works
 const stopMarkersConfig: L.MarkerClusterGroupOptions = {
   iconCreateFunction: createStopIcon,
   showCoverageOnHover: false,
@@ -121,9 +118,11 @@ export class MapComponent implements OnInit {
   private http = inject(HttpClient);
 
   private map!: L.Map;
+
   private stops!: Stop[];
   private stopsDetails!: Record<string, StopDetailsBus[]>;
   private buses!: Bus[];
+  private routes!: Record<string, Route>;
 
   private busMarkers: Record<string, L.Marker | undefined> = {};
 
@@ -145,6 +144,11 @@ export class MapComponent implements OnInit {
       this.http.get<Record<string, StopDetailsBus[]>>('assets/data/stop_details.json')
     );
 
+    this.routes = await firstValueFrom(
+      this.http.get<Record<string, Route>>('assets/data/routes.json')
+    );
+
+// @ts-expect-error it works
     const stopsLayer = new L.MarkerClusterGroup(stopMarkersConfig);
     const stopMarkers = this.stops.map(stop => this.createStopMarker(stop));
     stopsLayer.addLayers(stopMarkers);
@@ -239,20 +243,13 @@ export class MapComponent implements OnInit {
     marker.addTo(this.map);
   }
 
-  private async getRoute(bus: Bus) {
-    const route = await firstValueFrom(
-      this.http.get<Route[]>(`/api/routes/${bus.route}`)
-    );
-
-    const currentOrder = route.find(point => point.stopId === bus.latest_route_stop)?.order;
-    if (!currentOrder) return [];
-
-    return route.filter(point => parseInt(point.order) > parseInt(currentOrder));
-  }
-
   private async updateRoute(busId: string) {
     const bus = this.buses.find((bus) => bus.id === busId)!;
-    const route = await this.getRoute(bus);
+    let route = this.routes[bus.route].details ?? [];
+
+    const currentOrder = route.find(point => point === bus.latest_route_stop)!;
+
+    route = route.slice(route.indexOf(currentOrder) + 1);
 
     if (this.currentRoute) {
       const updatedLatLon = this.currentRoute.getLatLngs();
@@ -262,7 +259,7 @@ export class MapComponent implements OnInit {
 
     const paths = route
       .map(point => {
-        const stop = this.stops.find(stop => stop.id === point.stopId);
+        const stop = this.stops.find(stop => stop.id === point);
         return stop ? [stop.lat, stop.lon] : [0, 0];
       })
       .filter(([lat, lon]) => lat !== 0 && lon !== 0) as L.LatLngExpression[];
