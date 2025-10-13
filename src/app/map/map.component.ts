@@ -177,7 +177,7 @@ export class MapComponent implements OnInit {
             });
           }
         );
-    }, 500);
+    }, 1000);
   }
 
   private createStopMarker(stop: Stop) {
