@@ -1,4 +1,4 @@
-import {Bus} from './map.component';
+import {Bus} from './types';
 
 export interface ZpgsaBus {
   id: string;

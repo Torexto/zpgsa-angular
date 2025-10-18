@@ -1,5 +1,5 @@
 import {DateTime} from 'luxon';
-import {StopDetailsBus} from './map.component';
+import {StopDetailsBus} from './types';
 
 interface Date {
   day: number;

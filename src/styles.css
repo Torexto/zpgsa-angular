@@ -8,6 +8,10 @@
   --popup-background: rgba(0, 0, 0, 0.8);
 }
 
+#map {
+  height: 100%;
+}
+
 .leaflet-popup-content-wrapper {
   background-color: var(--popup-background) !important;
   color: white !important;
