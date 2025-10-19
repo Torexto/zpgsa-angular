@@ -34,3 +34,21 @@ export interface Route {
   "name": string;
   "details": string[];
 }
+
+export interface ZpgsaBus {
+  id: string;
+  destination: string;
+  line: string;
+  label: string;
+  deviation: number;
+  lat: number;
+  lon: number;
+
+  route: string;
+  latestRouteStop: string;
+
+  active: string;
+  latestPassingTime: number;
+  vehicleComputer: string;
+  vehicleFeatures: [];
+}

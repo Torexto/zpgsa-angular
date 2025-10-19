@@ -1,22 +1,4 @@
-import {Bus} from './types';
-
-export interface ZpgsaBus {
-  id: string;
-  destination: string;
-  line: string;
-  label: string;
-  deviation: number;
-  lat: number;
-  lon: number;
-
-  route: string;
-  latestRouteStop: string;
-
-  active: string;
-  latestPassingTime: number;
-  vehicleComputer: string;
-  vehicleFeatures: [];
-}
+import type {Bus, ZpgsaBus} from './types';
 
 export default function filterBus(bus: ZpgsaBus): Bus {
   bus.label = (bus.label.split(" ")[0]).split("-")[0];

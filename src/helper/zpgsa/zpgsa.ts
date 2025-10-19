@@ -1,9 +1,11 @@
 import L from 'leaflet';
 import "leaflet.markercluster";
-import type {Bus, Route, Stop, StopDetailsBus} from './types';
-import filterBus, {ZpgsaBus} from './filterBus';
 import platform from 'platform';
+
+import filterBus from './filterBus';
 import {filterStopDetails} from './filterStopDetails';
+
+import type {Bus, Route, Stop, StopDetailsBus, ZpgsaBus} from './types';
 
 function createBusPopup(bus: Bus) {
   return `
@@ -46,29 +48,6 @@ function createStopPopup(stop: Stop, buses: StopDetailsBus[]) {
     `;
 }
 
-// @ts-expect-error it works
-function createStopIcon(cluster: L.MarkerCluster) {
-  return new L.DivIcon({
-    iconSize: L.point(15, 15),
-    className: 'stop-icon',
-    html: `<span>${cluster.getChildCount()}</span>`
-  });
-}
-
-const mapConfig: L.MapOptions = {
-  center: L.latLng(50.71, 16.63),
-  zoom: 13,
-};
-
-// @ts-expect-error it works
-const stopMarkersConfig: L.MarkerClusterGroupOptions = {
-  iconCreateFunction: createStopIcon,
-  showCoverageOnHover: false,
-  zoomToBoundsOnClick: true,
-  animate: true,
-  singleMarkerMode: true,
-  maxClusterRadius: 30
-};
 
 export class Zpgsa {
   private readonly map!: L.Map;
@@ -78,51 +57,82 @@ export class Zpgsa {
   private buses!: Bus[];
   private routes!: Record<string, Route>;
 
-  private busMarkers: Record<string, L.Marker | undefined> = {};
+  private busMarkers: Map<string, L.Marker> = new Map<string, L.Marker>();
 
   private currentRoute: L.Polyline | null = null;
   private currentRouteBusId: string | null = null;
 
   constructor(mapId: string) {
-    this.map = new L.Map(mapId, mapConfig);
+    this.map = this.createMap(mapId);
+  }
 
-    new L.TileLayer("https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png", {
-      attribution: '&copy; OpenStreetMap contributors'
-    }).addTo(this.map);
+  public static async new(mapId: string) {
+    const zpgsa = new Zpgsa(mapId);
+    await zpgsa.init();
+    return zpgsa;
   }
 
   public async init() {
-    this.stops = await fetch("assets/data/stops.json").then((res) => res.json());
-    this.stopsDetails = await fetch("assets/data/stop_details.json").then((res) => res.json());
-    this.routes = await fetch("assets/data/routes.json").then((res) => res.json());
+    const [stops, stopDetails, routes] = await this.fetchData();
 
-// @ts-expect-error it works
+    this.stops = stops;
+    this.stopsDetails = stopDetails;
+    this.routes = routes;
+
+    this.setupStopsLayer();
+    setInterval(() => this.updateBuses(), 1000);
+  }
+
+  private createMap(mapId: string): L.Map {
+    const mapConfig: L.MapOptions = {
+      center: L.latLng(50.71, 16.63),
+      zoom: 13,
+    };
+
+    const map = new L.Map(mapId, mapConfig);
+
+    const tileLayer = new L.TileLayer("https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png", {
+      attribution: '&copy; OpenStreetMap contributors'
+    });
+
+    tileLayer.addTo(map);
+
+    return map;
+  }
+
+  private async fetchData() {
+    const stops = fetch("assets/data/stops.json").then((res) => res.json());
+    const stopsDetails = fetch("assets/data/stop_details.json").then((res) => res.json());
+    const routes = fetch("assets/data/routes.json").then((res) => res.json());
+
+    return await Promise.all([stops, stopsDetails, routes]);
+  }
+
+  private setupStopsLayer() {
+    // @ts-expect-error clusters don't have types
+    const createStopIcon = (cluster: L.MarkerCluster) => {
+      return new L.DivIcon({
+        iconSize: L.point(15, 15),
+        className: 'stop-icon',
+        html: `<span>${cluster.getChildCount()}</span>`
+      });
+    };
+
+    // @ts-expect-error clusters don't have types
+    const stopMarkersConfig: L.MarkerClusterGroupOptions = {
+      iconCreateFunction: createStopIcon,
+      showCoverageOnHover: false,
+      zoomToBoundsOnClick: true,
+      animate: true,
+      singleMarkerMode: true,
+      maxClusterRadius: 30
+    };
+
+    // @ts-expect-error clusters don't have types
     const stopsLayer = new L.MarkerClusterGroup(stopMarkersConfig);
     const stopMarkers = this.stops.map(stop => this.createStopMarker(stop));
     stopsLayer.addLayers(stopMarkers);
     stopsLayer.addTo(this.map);
-    this.initBusesLoop();
-  }
-
-  private initBusesLoop() {
-    setInterval(async () => {
-      const buses: ZpgsaBus[] = await fetch("/api/buses").then((res) => res.json());
-      this.buses = buses.map(filterBus);
-      this.buses.forEach(bus => {
-        const busMarker = this.busMarkers[bus.id];
-
-        if (!busMarker) {
-          this.createBusMarker(bus);
-          return;
-        }
-
-        busMarker.setLatLng(L.latLng(bus.lat, bus.lon));
-        busMarker.setIcon(createBusIcon(bus));
-        if (this.currentRouteBusId === bus.id && this.currentRoute) {
-          queueMicrotask(() => this.updateRoute(bus.id));
-        }
-      });
-    }, 1000);
   }
 
   private createStopMarker(stop: Stop) {
@@ -150,13 +160,36 @@ export class Zpgsa {
 
     marker.on('click', () => {
       const stopDetails = this.stopsDetails?.[stop.id] ?? [];
-      console.log(stopDetails);
       const filteredStopDetails = filterStopDetails(stopDetails);
-      console.log(filteredStopDetails);
       marker.getPopup()?.setContent(createStopPopup(stop, filteredStopDetails));
     });
 
     return marker;
+  }
+
+  private async fetchBuses() {
+    return await fetch("/api/buses")
+      .then((res) => res.json())
+      .then((zpgsaBuses: ZpgsaBus[]) => zpgsaBuses.map(filterBus));
+  }
+
+  private async updateBuses() {
+    this.buses = await this.fetchBuses();
+    this.buses.forEach(bus => {
+      const busMarker = this.busMarkers.get(bus.id);
+
+      if (!busMarker) {
+        this.createBusMarker(bus);
+        return;
+      }
+
+      busMarker.setLatLng(L.latLng(bus.lat, bus.lon));
+      busMarker.setIcon(createBusIcon(bus));
+    });
+    
+    if (this.currentRoute) {
+      this.updateRoute(this.currentRouteBusId!);
+    }
   }
 
   private createBusMarker(bus: Bus) {
@@ -180,15 +213,15 @@ export class Zpgsa {
         this.currentRoute = null;
       } else {
         this.currentRouteBusId = bus.id;
-        queueMicrotask(() => this.updateRoute(bus.id));
+        this.updateRoute(bus.id);
       }
     });
 
-    this.busMarkers[bus.id] = marker;
+    this.busMarkers.set(bus.id, marker);
     marker.addTo(this.map);
   }
 
-  private async updateRoute(busId: string) {
+  private updateRoute(busId: string) {
     const bus = this.buses.find((bus) => bus.id === busId)!;
     let route = this.routes[bus.route].details ?? [];
 

@@ -1,5 +1,5 @@
 import {Component, OnInit} from '@angular/core';
-import {Zpgsa} from '../../helper/zpgsa';
+import {Zpgsa} from '../../helper/zpgsa/zpgsa';
 
 @Component({
   selector: 'app-map',
@@ -7,10 +7,8 @@ import {Zpgsa} from '../../helper/zpgsa';
   styleUrl: './map.component.css'
 })
 export class MapComponent implements OnInit {
-  private zpgsa!: Zpgsa;
 
   async ngOnInit() {
-    this.zpgsa = new Zpgsa("map");
-    await this.zpgsa.init();
+    await Zpgsa.new("map");
   }
 }
