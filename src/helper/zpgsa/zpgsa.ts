@@ -195,6 +195,13 @@ export default class Zpgsa {
       busMarker.setIcon(createBusIcon(bus));
     });
 
+    for (const [id, marker] of this.busMarkers.entries()) {
+      if (!this.buses.has(id)) {
+        this.map.removeLayer(marker);
+        this.busMarkers.delete(id);
+      }
+    }
+
     this.updateRoute();
   }
 
