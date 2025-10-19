@@ -1,5 +1,5 @@
 import {DateTime} from 'luxon';
-import {StopDetailsBus} from './types';
+import type {StopDetailsBus} from './types';
 
 interface Date {
   day: number;
@@ -24,8 +24,14 @@ const daysFreeFromSchool: Date[] = [
 ];
 
 const holidays: Date[] = [
-  {day: 6, month: 1}, {day: 19, month: 6}, {day: 1, month: 11}, {day: 1, month: 1}, {day: 6, month: 1}, {day: 23, month: 12},
-  {day: 24, month: 12}, {day: 25, month: 12},{day: 17, month: 4}, {day: 18, month: 4},{day: 19, month: 4}, {day: 20, month: 4},
+  {day: 6, month: 1}, {day: 19, month: 6}, {day: 1, month: 11}, {day: 1, month: 1}, {day: 6, month: 1}, {
+    day: 23,
+    month: 12
+  },
+  {day: 24, month: 12}, {day: 25, month: 12}, {day: 17, month: 4}, {day: 18, month: 4}, {day: 19, month: 4}, {
+    day: 20,
+    month: 4
+  },
   {day: 21, month: 4}, {day: 1, month: 5}, {day: 3, month: 5}, {day: 15, month: 8}
 ];
 
@@ -55,7 +61,7 @@ const parseBusTime = (busTime: string, now: DateTime): DateTime | null => {
   return parsedTime.isValid ? parsedTime.set({year: now.year, month: now.month, day: now.day}) : null;
 };
 
-export const filterStopDetails = (buses: StopDetailsBus[]): StopDetailsBus[] => {
+export default function filterStopDetails(buses: StopDetailsBus[]): StopDetailsBus[] {
   const nowDate = DateTime.now();
 
   let filteredBuses = filterBuses(nowDate, buses);

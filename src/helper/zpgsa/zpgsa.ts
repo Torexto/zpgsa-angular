@@ -3,7 +3,7 @@ import "leaflet.markercluster";
 import platform from 'platform';
 
 import filterBus from './filterBus';
-import {filterStopDetails} from './filterStopDetails';
+import filterStopDetails from './filterStopDetails';
 
 import type {Bus, Route, Stop, StopDetailsBus, ZpgsaBus} from './types';
 
@@ -49,12 +49,12 @@ function createStopPopup(stop: Stop, buses: StopDetailsBus[]) {
 }
 
 
-export class Zpgsa {
-  private readonly map!: L.Map;
+export default class Zpgsa {
+  private map!: L.Map;
 
   private stops!: Stop[];
   private stopsDetails!: Record<string, StopDetailsBus[]>;
-  private buses!: Bus[];
+  private buses!: Map<string, Bus>;
   private routes!: Record<string, Route>;
 
   private busMarkers: Map<string, L.Marker> = new Map<string, L.Marker>();
@@ -62,17 +62,17 @@ export class Zpgsa {
   private currentRoute: L.Polyline | null = null;
   private currentRouteBusId: string | null = null;
 
-  constructor(mapId: string) {
-    this.map = this.createMap(mapId);
+  private constructor() {
+    /* empty */
   }
 
   public static async new(mapId: string) {
-    const zpgsa = new Zpgsa(mapId);
-    await zpgsa.init();
-    return zpgsa;
+    return await new Zpgsa().init(mapId);
   }
 
-  public async init() {
+  private async init(mapId: string) {
+    this.map = this.createMap(mapId);
+
     const [stops, stopDetails, routes] = await this.fetchData();
 
     this.stops = stops;
@@ -81,6 +81,8 @@ export class Zpgsa {
 
     this.setupStopsLayer();
     setInterval(() => this.updateBuses(), 1000);
+
+    return this;
   }
 
   private createMap(mapId: string): L.Map {
@@ -170,7 +172,13 @@ export class Zpgsa {
   private async fetchBuses() {
     return await fetch("/api/buses")
       .then((res) => res.json())
-      .then((zpgsaBuses: ZpgsaBus[]) => zpgsaBuses.map(filterBus));
+      .then((zpgsaBuses: ZpgsaBus[]) => zpgsaBuses.map(filterBus))
+      .then((buses) => (
+          buses.reduce(
+            (map, bus) => map.set(bus.id, bus),
+            new Map<string, Bus>())
+        )
+      );
   }
 
   private async updateBuses() {
@@ -186,10 +194,8 @@ export class Zpgsa {
       busMarker.setLatLng(L.latLng(bus.lat, bus.lon));
       busMarker.setIcon(createBusIcon(bus));
     });
-    
-    if (this.currentRoute) {
-      this.updateRoute(this.currentRouteBusId!);
-    }
+
+    this.updateRoute();
   }
 
   private createBusMarker(bus: Bus) {
@@ -200,30 +206,37 @@ export class Zpgsa {
     marker.bindPopup(new L.Popup());
 
     marker.on('click', () => {
-      const busInfo = this.buses.find((bus1) => bus1.id === bus.id);
-      marker.getPopup()
-        ?.setContent(createBusPopup(busInfo!))
-        .openPopup();
+      const busInfo = this.buses.get(bus.id);
+      const popup = marker.getPopup();
+      if (!popup || !busInfo) return;
+
+      const content = createBusPopup(busInfo);
+
+      popup.setContent(content).openPopup();
     });
 
     marker.on("contextmenu", () => {
-      if (this.currentRouteBusId === bus.id && this.currentRoute) {
-        this.currentRouteBusId = null;
-        this.map.removeLayer(this.currentRoute);
-        this.currentRoute = null;
-      } else {
-        this.currentRouteBusId = bus.id;
-        this.updateRoute(bus.id);
-      }
+      this.currentRouteBusId = this.currentRouteBusId === bus.id ? null : bus.id;
+      this.updateRoute();
     });
 
     this.busMarkers.set(bus.id, marker);
     marker.addTo(this.map);
   }
 
-  private updateRoute(busId: string) {
-    const bus = this.buses.find((bus) => bus.id === busId)!;
-    let route = this.routes[bus.route].details ?? [];
+  private updateRoute() {
+    if (!this.currentRouteBusId) {
+      if (this.currentRoute) {
+        this.map.removeLayer(this.currentRoute);
+        this.currentRoute = null;
+      }
+      return;
+    }
+
+    const bus = this.buses.get(this.currentRouteBusId);
+    if (!bus) return;
+
+    let route = this.routes[bus.route]?.details ?? [];
 
     const currentOrder = route.find(point => point === bus.latest_route_stop)!;
 
@@ -245,7 +258,6 @@ export class Zpgsa {
     const fullPath = [L.latLng(bus.lat, bus.lon), ...paths];
 
     if (this.currentRoute) this.map.removeLayer(this.currentRoute);
-    if (this.currentRouteBusId !== busId) return;
     this.currentRoute = new L.Polyline(fullPath, {color: 'red'}).addTo(this.map);
   }
 }

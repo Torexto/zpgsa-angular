@@ -1,5 +1,5 @@
 import {Component, OnInit} from '@angular/core';
-import {Zpgsa} from '../../helper/zpgsa/zpgsa';
+import Zpgsa from '../../helper/zpgsa';
 
 @Component({
   selector: 'app-map',
