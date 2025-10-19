@@ -5,7 +5,7 @@ export interface Bus {
   lon: number;
   line: string;
   route: string,
-  latest_route_stop: string,
+  latestRouteStop: string,
   deviation: string;
   icon: string;
   destination: string;

@@ -2,7 +2,7 @@ import L from 'leaflet';
 import "leaflet.markercluster";
 import platform from 'platform';
 
-import filterBus from './filterBus';
+import toBus from './toBus';
 import filterStopDetails from './filterStopDetails';
 
 import type {Bus, Route, Stop, StopDetailsBus, ZpgsaBus} from './types';
@@ -172,7 +172,7 @@ export default class Zpgsa {
   private async fetchBuses() {
     return await fetch("/api/buses")
       .then((res) => res.json())
-      .then((zpgsaBuses: ZpgsaBus[]) => zpgsaBuses.map(filterBus))
+      .then((zpgsaBuses: ZpgsaBus[]) => zpgsaBuses.map(toBus))
       .then((buses) => (
           buses.reduce(
             (map, bus) => map.set(bus.id, bus),
@@ -245,7 +245,7 @@ export default class Zpgsa {
 
     let route = this.routes[bus.route]?.details ?? [];
 
-    const currentOrder = route.find(point => point === bus.latest_route_stop)!;
+    const currentOrder = route.find(point => point === bus.latestRouteStop)!;
 
     route = route.slice(route.indexOf(currentOrder) + 1);
 
